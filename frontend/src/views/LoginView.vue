@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
+import type { FormInstance, FormRules } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { ElMessage } from 'element-plus'
@@ -12,14 +13,29 @@ const loading = ref(false)
 
 const loginForm = reactive({ username: '', password: '' })
 const registerForm = reactive({ email: '', username: '', password: '' })
+const registerFormRef = ref<FormInstance>()
+const registerRules: FormRules = {
+  email: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入有效的邮箱地址', trigger: 'blur' },
+  ],
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 2, max: 32, message: '用户名需要 2-32 个字符', trigger: 'blur' },
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 4, max: 128, message: '密码需要 4-128 个字符', trigger: 'blur' },
+  ],
+}
 
 async function handleLogin() {
   loading.value = true
   try {
-    const formData = new FormData()
-    formData.append('username', loginForm.username)
-    formData.append('password', loginForm.password)
-    const res = await apiClient.post('/login', formData, {
+    const params = new URLSearchParams()
+    params.append('username', loginForm.username)
+    params.append('password', loginForm.password)
+    const res = await apiClient.post('/login', params, {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
     authStore.setToken(res.data.access_token)
@@ -32,6 +48,9 @@ async function handleLogin() {
 }
 
 async function handleRegister() {
+  if (!registerFormRef.value) return
+  const valid = await registerFormRef.value.validate().catch(() => false)
+  if (!valid) return
   loading.value = true
   try {
     await apiClient.post('/register', registerForm)
@@ -73,15 +92,15 @@ async function handleRegister() {
           </el-tab-pane>
 
           <el-tab-pane label="注册" name="register">
-            <el-form @submit.prevent="handleRegister" label-position="top">
-              <el-form-item label="邮箱">
-                <el-input v-model="registerForm.email" size="large" />
+            <el-form ref="registerFormRef" :model="registerForm" :rules="registerRules" @submit.prevent="handleRegister" label-position="top">
+              <el-form-item label="邮箱" prop="email">
+                <el-input v-model="registerForm.email" size="large" placeholder="请输入有效邮箱" />
               </el-form-item>
-              <el-form-item label="用户名">
-                <el-input v-model="registerForm.username" size="large" />
+              <el-form-item label="用户名" prop="username">
+                <el-input v-model="registerForm.username" size="large" placeholder="2-32 个字符" />
               </el-form-item>
-              <el-form-item label="密码">
-                <el-input v-model="registerForm.password" type="password" size="large" show-password />
+              <el-form-item label="密码" prop="password">
+                <el-input v-model="registerForm.password" type="password" size="large" show-password placeholder="至少 4 个字符" />
               </el-form-item>
               <el-button type="primary" size="large" :loading="loading" native-type="submit" >
                 注册
@@ -186,6 +205,10 @@ async function handleRegister() {
   color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+
+.auth-tabs :deep(.el-form-item__error) {
+  display: none;
 }
 
 .auth-tabs :deep(.el-input__wrapper) {

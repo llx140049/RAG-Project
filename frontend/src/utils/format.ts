@@ -1,3 +1,4 @@
+// 文件类型标签
 export function fileBadge(type: string) {
   const t = type.toLowerCase()
   if (t === 'pdf') return 'PDF'
@@ -7,6 +8,7 @@ export function fileBadge(type: string) {
   return type.toUpperCase()
 }
 
+// 文件大小格式化
 export function formatSize(bytes: number): string {
   if (bytes < 1024) return bytes + ' B'
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'

@@ -94,7 +94,10 @@ app.add_middleware(
 # 注册接口
 @app.post("/register", response_model=UserOut)
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
-
+    if db.query(User).filter(User.email == user_data.email).first():
+        raise HTTPException(status_code=409, detail="该邮箱已被注册")
+    if db.query(User).filter(User.username == user_data.username).first():
+        raise HTTPException(status_code=409, detail="该用户名已被使用")
 
     user = User(
         email=user_data.email,
@@ -106,7 +109,6 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
     db.refresh(user)
     return user
 
-# 登录接口
 @app.post("/login", response_model=Token)
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(),

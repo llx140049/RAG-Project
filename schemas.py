@@ -1,12 +1,31 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, field_validator
 from datetime import datetime
 from typing import Optional
 
 # 用户注册请求模型
 class UserCreate(BaseModel):
-    email: str
+    email: EmailStr
     username: str
     password: str
+
+    @field_validator("username")
+    @classmethod
+    def username_not_empty(cls, v: str) -> str:
+        v = v.strip()
+        if not v or len(v) < 2:
+            raise ValueError("用户名至少需要 2 个字符")
+        if len(v) > 32:
+            raise ValueError("用户名不能超过 32 个字符")
+        return v
+
+    @field_validator("password")
+    @classmethod
+    def password_strength(cls, v: str) -> str:
+        if len(v) < 4:
+            raise ValueError("密码至少需要 4 个字符")
+        if len(v) > 128:
+            raise ValueError("密码不能超过 128 个字符")
+        return v
 
 # 用户注册响应模型
 class UserOut(BaseModel):

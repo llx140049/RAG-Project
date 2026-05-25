@@ -41,6 +41,8 @@
 		processQueue()
 	}
 
+  // 上传队列处理函数,统一处理上传任务(易扩展)
+  // 遍历上传队列,处理每个文件的上传任务
 	async function processQueue(){
 		for(const item of queue){
 			if(item.status!=='waiting') continue
@@ -52,16 +54,12 @@
 				item.status='done'
 			} catch (error) {
 				item.status='error'
-				ElMessage.error('上传失败')
+				
 			}
 		}
 	}
 
 </script>
-
-
-
-
 
 
 
@@ -101,8 +99,9 @@
 				<h2>上传列表</h2>
 				<div class="list-scroll">
 					<div v-if="queue.length===0" class="empty-hint">暂无上传任务</div>
-			
+          <!-- 上传队列卡片,显示文件名,大小,类型,状态图标-->
 					<div v-for="item in queue" :key="item.uid" class="queue-card">
+            <!-- 文件类型标签 ,动态绑定类名-->
 						<span :class="['type-badge',item.type]">{{fileBadge(item.type)}}</span>
 						<div class="list-info">
 							<span class="list-name">{{item.name}}</span>
@@ -312,8 +311,10 @@
   padding: 40px 0;
 }
 .list-scroll {
+  /* 滚动条 */
   max-height: 480px;
   overflow-y: auto;
+
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -334,12 +335,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 37px;
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 900;
-  border: 3px solid #000000;
+  border: 2px solid #000000;
   box-shadow: 2px 2px 0px #000000;
   flex-shrink: 0;
 }

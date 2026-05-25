@@ -14,7 +14,7 @@ export const useDocumentStore = defineStore('documents',()=>{
 
         // 加载文档,返回 Promise,等待加载完成
         // 加载成功后,更新文档列表和总数
-        async function loadDocuments(skip=0,limit=20){
+        async function loadDocuments(skip=0,limit=100){
             loading.value=true
             try{
                 // fetchDocuments 函数返回一个 Promise，等待它解析为一个 DocumentItem 数组
@@ -22,7 +22,7 @@ export const useDocumentStore = defineStore('documents',()=>{
                 documents.value=res.data
                 total.value=res.data.length
             }catch(err){
-                ElMessage.error('加载文档失败')// 显示错误消息
+                ElMessage.error('加载文档失败')
             }finally{
                 loading.value=false
             }
@@ -46,11 +46,12 @@ export const useDocumentStore = defineStore('documents',()=>{
         async function doUpload (file:File){
             loading.value=true
             try{
-                await uploadDocument(file)
-                await loadDocuments()
+                await uploadDocument(file)// 上传文档
+                await loadDocuments()// 刷新文档列表
                 ElMessage.success('上传成功')
             }catch(err){
                 ElMessage.error('上传失败')
+                throw err// 抛出错误,让调用者处理
             }finally{
                 loading.value=false
             }
