@@ -40,6 +40,7 @@
 				time:formatTime(),
 				sources:res.data.sources,
 			})
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.value))// 保存对话记录
 		}catch (error: any) {
 			const msg = error?.response?.data?.detail || error?.message || '回答失败，请稍后重试'
 			ElMessage.error(`回答失败：${msg}`)
@@ -63,14 +64,7 @@
 		localStorage.removeItem(STORAGE_KEY)// 清除本地存储中的对话记录
 	}
 
-	function saveChat(){
-		if(messages.value.length===0){
-			ElMessage.warning('请先提问')
-			return
-		}
-		localStorage.setItem(STORAGE_KEY,JSON.stringify(messages.value))// 保存对话记录
-		ElMessage.success('对话已保存')
-	}
+
 
 	const saved=localStorage.getItem(STORAGE_KEY)// 从本地存储中获取对话记录
 	if(saved){
@@ -104,7 +98,6 @@
 				<p>基于上传文档的知识库问答，每次对话为独立会话</p>
 			</div>
 			<div class="header-actions">
-				<button class="clear-btn" @click="saveChat">保存对话</button>
 				<button class="clear-btn" @click="clearMessages">清除对话</button>
 			</div>
 		</header>
@@ -112,6 +105,7 @@
 		<div class="qa-body">
 			<div ref="listRef" class="message-list">
 				<div v-if="messages.length===0" class="empty-hint">开始提问吧!</div>
+
 				<div
 					v-for="(msg,i) in messages"
 					:key="i"
@@ -246,7 +240,7 @@
 
 .empty-hint {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--text-muted);
   text-align: center;
@@ -274,7 +268,7 @@
 .msg-role {
   display: block;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -286,7 +280,7 @@
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.7;
   color: var(--text-primary);
   margin: 0;
   white-space: pre-wrap;/* 保留换行符 */

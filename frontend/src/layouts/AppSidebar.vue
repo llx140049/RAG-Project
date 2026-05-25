@@ -1,19 +1,28 @@
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useAuthStore } from '../stores/auth'
 
 const auth = useAuthStore()
+
+onMounted(() => {
+  if (auth.token && !auth.user) {
+    auth.fetchUser()
+  }
+})
 </script>
 <template>
     <div class="app-shell">
+        <!--布局组件里，整体结构是 aside + main-->
         <aside class="sidebar">
+            <!-- 品牌区域 -->
             <div class="brand">
                 <img src="/assets/logo.svg?v=2" alt="logo" class="logo"/>
                 <div>
                     <strong class="brand-name">LCRAG</strong>
                 </div>
             </div>
-
+            <!-- 导航区域,点击仅改变 URL 路径，侧边栏自身不刷新 -->
             <nav class="nav-list">
                 <router-link to="/knowledge" class="nav-item">
                     <i class="iconfont icon-tiku"></i> 知识库
@@ -33,9 +42,9 @@ const auth = useAuthStore()
             
 
                 <div class="profile">
-                    <span class="head-picture">A</span>
+                    <span class="head-picture">{{ auth.user?.username?.charAt(0) || 'A' }}</span>
                     <div>
-                        <strong class="username">{{ auth.user?.username || '用户' }}</strong>
+                        <strong class="username">{{ auth.user?.username  }}</strong>
                         <span class="profile-word">{{ auth.signature }}</span>
                     </div>
                 </div>
@@ -44,7 +53,8 @@ const auth = useAuthStore()
 
         <!-- 主内容区域 -->
         <main class="main">
-            <router-view></router-view>
+            <!--router-view 就是一个路由组件显示窗口，当前地址匹配到哪个页面组件，就把哪个页面渲染到这个位置-->
+            <router-view/>
         </main>
     </div>
 </template>
@@ -154,7 +164,7 @@ const auth = useAuthStore()
         margin-top: 2px;
         font-size: 18px;
         font-weight: 900;
-        color: #FFFFFF;
+        color: var(--brand-gold);
     }
     .profile-word {
         display: block;

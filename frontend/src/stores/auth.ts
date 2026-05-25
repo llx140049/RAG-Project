@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import apiClient from '../api/client'
 
 interface User {//给对象写一份"规格说明书"
   id: number
@@ -14,6 +15,17 @@ export const useAuthStore = defineStore('auth', () => {
 	const token = ref<string | null>(localStorage.getItem('token'))// 从localStorage中获取token,如果不存在则为null
 	const user = ref<User | null>(null)
 	const loading = ref(false)
+
+  // 从后端获取用户信息
+	async function fetchUser() {
+		if (!token.value) return
+		try {
+			const res = await apiClient.get<User>('/me')
+			user.value = res.data
+		} catch {
+			logout()
+		}
+	}
 
 	//使用: auth.setToken('xxx')  // 写入 token
   function setToken(newToken: string) {
@@ -33,5 +45,5 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('token')// 从localStorage中删除token
   }
 
-  return { token, user, loading, setToken, logout, signature, setSignature }
+  return { token, user, loading, fetchUser, setToken, logout, signature, setSignature }
 })

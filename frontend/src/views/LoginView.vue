@@ -39,6 +39,7 @@ async function handleLogin() {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
     authStore.setToken(res.data.access_token)
+    await authStore.fetchUser()
     router.push('/knowledge')
   } catch (e: any) {
     ElMessage.error(e.response?.data?.detail || '登录失败')

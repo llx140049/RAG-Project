@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+﻿import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -16,8 +16,10 @@ const router = createRouter({
       meta: { guest: true },
     },
     {
+      //嵌套路由 : 根路径 / 先加载布局组件 AppSidebar.vue
+      // 主路由Sidebar,包含子路由:上传,知识库,问答,历史记录,设置
       path: '/',
-      component: () => import('../layouts/AppLayout.vue'),
+      component: () => import('../layouts/AppSidebar.vue'),
       meta: { requiresAuth: true },
       redirect: '/knowledge',
       children: [

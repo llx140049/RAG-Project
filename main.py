@@ -289,15 +289,6 @@ def delete_document(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    # If token provided via query param, validate manually
-    if token and not current_user:
-        from jose import jwt
-        try:
-            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-            user_id = int(payload.get("sub"))
-            current_user = db.query(User).filter(User.id == user_id).first()
-        except Exception:
-            pass
     doc = (
         db.query(Document)
         .filter(Document.file_id == file_id, Document.user_id == current_user.id)
