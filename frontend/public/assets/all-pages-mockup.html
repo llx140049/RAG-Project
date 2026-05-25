@@ -1,0 +1,421 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCRAG · 全部页面效果图</title>
+<style>
+:root {
+  --brand-coral:#E85D4A; --brand-blue:#2C5F8A; --brand-gold:#F0C050;
+  --bg-cream:#F9F6F0; --bg-sidebar:#F5F1EA; --border-warm:#000;
+  --shadow:5px 5px 0px #000; --shadow-sm:4px 4px 0px #000;
+  --text-primary:#1C1C1C; --text-muted:#666;
+  --font-heading:"Arial Black","Impact",sans-serif;
+  --font-mono:"Courier New","Consolas",monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-heading);font-weight:700;color:var(--text-primary);background:var(--bg-cream);display:flex;height:100vh;overflow:hidden}
+
+/* ===== PRIMITIVES (reusable from Settings) ===== */
+.card{background:#FFF;border:3px solid #000;box-shadow:var(--shadow);padding:28px 24px;display:flex;flex-direction:column;gap:16px;transition:transform .15s,box-shadow .15s}
+.card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0px #000}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-family:var(--font-heading);font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:1px;border:2px solid #000;box-shadow:3px 3px 0px #000;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(2px,2px);box-shadow:1px 1px 0px #000}
+.btn:active{transform:translate(3px,3px);box-shadow:none}
+.btn-blue{background:var(--brand-blue);color:#fff}
+.btn-coral{background:var(--brand-coral);color:#fff}
+.btn-red{background:#DC2626;color:#fff}
+.input-field{width:100%;padding:12px 14px;font-family:var(--font-mono);font-size:15px;font-weight:700;background:#fff;border:2px solid #000;box-shadow:3px 3px 0px #000;outline:none}
+.input-field:focus{background:#FFF9E6;box-shadow:4px 4px 0px #000;transform:translate(-1px,-1px)}
+.input-field::placeholder{color:#aaa;font-weight:400;font-style:italic}
+.input-label{font-family:var(--font-mono);font-size:13px;font-weight:700;color:var(--text-muted);text-transform:uppercase}
+.badge{display:inline-block;padding:2px 10px;font-family:var(--font-mono);font-size:12px;font-weight:800;border:2px solid #000;box-shadow:2px 2px 0px #000}
+.badge-pdf{background:var(--brand-coral);color:#fff}
+.badge-docx{background:var(--brand-blue);color:#fff}
+.badge-md{background:var(--brand-gold);color:#000}
+.badge-txt{background:#E8E3D9;color:#000}
+
+/* ===== SIDEBAR ===== */
+.sidebar{display:flex;flex-direction:column;width:230px;min-width:230px;background:var(--bg-sidebar);border-right:3px solid var(--border-warm)}
+.brand{display:flex;align-items:center;justify-content:center;gap:12px;padding:20px 16px 28px}
+.brand-icon{width:44px;height:44px;background:var(--brand-coral);border:3px solid #000;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff}
+.brand-name{font-size:22px;font-weight:900;letter-spacing:3px}
+.nav-list{display:flex;flex-direction:column;gap:12px;padding:0 16px;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:14px 16px;font-size:15px;font-weight:800;border:2px solid #000;box-shadow:var(--shadow-sm);cursor:pointer;background:var(--bg-sidebar);transition:transform .1s,box-shadow .1s}
+.nav-item:hover{transform:translate(2px,2px);box-shadow:2px 2px 0px #000}
+.nav-item.active{background:var(--brand-gold)}
+.nav-dot{width:20px;height:20px;border:2px solid #000;flex-shrink:0}
+.nav-item:nth-child(1) .nav-dot{background:var(--brand-blue)}
+.nav-item:nth-child(2) .nav-dot{background:var(--brand-coral)}
+.nav-item:nth-child(3) .nav-dot{background:var(--brand-gold)}
+.nav-item:nth-child(4) .nav-dot{background:#8B5CF6}
+.nav-item.active .nav-dot{background:#000}
+.profile-area{display:flex;align-items:center;gap:10px;padding:16px 16px 20px;margin-top:auto;border-top:3px solid #000}
+.avatar{width:40px;height:40px;border:3px solid #000;border-radius:50%;background:var(--brand-blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+.user-name{font-size:16px;font-weight:900;display:block}
+.user-sig{font-size:11px;font-weight:700;color:var(--text-muted);display:block;font-family:var(--font-mono)}
+
+/* ===== MAIN AREA ===== */
+.main{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.main::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.04) 39px,rgba(255,255,255,0.04) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.04) 39px,rgba(255,255,255,0.04) 40px);pointer-events:none;z-index:0}
+.page-label{position:absolute;top:24px;left:40px;font-size:35px;font-weight:900;color:#fff;letter-spacing:2px;text-transform:uppercase;text-shadow:3px 3px 0px #000;z-index:1}
+
+/* ===== PAGE CONTAINERS ===== */
+.page-view{position:relative;z-index:1;width:100%;height:100%;display:none;align-items:center;justify-content:center;padding:60px 40px 40px}
+.page-view.active{display:flex}
+
+/* ---- KNOWLEDGE ---- */
+.knowledge-inner{display:flex;flex-direction:column;gap:24px;max-width:1100px;width:100%}
+.page-header{display:flex;align-items:center;justify-content:space-between;background:var(--brand-gold);border:3px solid #000;box-shadow:var(--shadow);padding:12px 28px;flex-shrink:0}
+.page-header h1{font-size:28px;font-weight:900;letter-spacing:8px;margin:0;text-transform:uppercase}
+.page-header p{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);margin:4px 0 0}
+.search-bar input{width:240px;padding:10px 14px;font-family:var(--font-mono);font-size:14px;font-weight:700;border:2px solid #000;box-shadow:3px 3px 0px var(--brand-gold);outline:none}
+.search-bar input:focus{box-shadow:4px 4px 0px var(--brand-gold);transform:translate(-1px,-1px)}
+.table-card{background:#FFF;border:3px solid #000;box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-family:var(--font-mono)}
+thead th{background:var(--bg-sidebar);padding:14px 16px;font-size:14px;font-weight:900;text-transform:uppercase;text-align:left;border-bottom:3px solid #000}
+tbody td{padding:12px 16px;font-size:13px;font-weight:700;border-bottom:1px solid #ddd}
+tbody tr:nth-child(even){background:#FAFAFA}
+tbody tr:hover{background:#FFF9E6}
+.table-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:3px solid #000;font-family:var(--font-mono);font-size:13px;font-weight:700}
+.op-btn{display:inline-block;padding:4px 14px;font-family:var(--font-mono);font-size:12px;font-weight:800;border:2px solid #000;box-shadow:2px 2px 0px #000;cursor:pointer;margin-right:6px;transition:transform .1s,box-shadow .1s}
+.op-btn:hover{transform:translate(1px,1px);box-shadow:1px 1px 0px #000}
+.op-btn:active{transform:translate(2px,2px);box-shadow:none}
+
+/* ---- UPLOAD ---- */
+.upload-layout{display:grid;grid-template-columns:3fr 2fr;gap:24px;width:100%;max-width:1100px}
+.dropzone{border:4px solid #000;box-shadow:var(--shadow);background:#FFF;min-height:400px;display:flex;align-items:center;justify-content:center;transition:transform .15s,box-shadow .15s}
+.dropzone:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0px #000}
+.dropzone-content{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:60px 20px}
+.dropzone-content .upload-icon{font-size:80px;color:var(--text-muted)}
+.drop-text{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--text-muted)}
+.queue-list{background:#FFF;border:4px solid #000;box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;gap:12px;transition:transform .15s,box-shadow .15s}
+.queue-list:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0px #000}
+.queue-list h2{font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin:0 0 8px;padding-bottom:12px;border-bottom:4px solid #000}
+.queue-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border:3px solid #000;box-shadow:3px 3px 0px #000;background:#FAFAFA}
+.type-badge{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;font-family:var(--font-mono);font-size:12px;font-weight:900;border:3px solid #000;box-shadow:2px 2px 0px #000;flex-shrink:0}
+.queue-info{flex:1;min-width:0}
+.queue-name{display:block;font-family:var(--font-mono);font-size:13px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.queue-size{font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--text-muted)}
+.status-dot{width:22px;height:22px;border:2px solid #000;flex-shrink:0}
+.status-done{background:#0F8F67}
+.status-wait{background:#E8E3D9}
+.status-up{background:var(--brand-gold)}
+
+/* ---- QA ---- */
+.qa-inner{display:flex;flex-direction:column;height:100%;max-width:1100px;width:100%;gap:20px}
+.qa-header-bar{display:flex;align-items:center;justify-content:space-between;background:var(--brand-gold);border:3px solid #000;box-shadow:var(--shadow);padding:12px 28px;flex-shrink:0}
+.qa-header-bar h1{font-size:28px;font-weight:900;letter-spacing:6px;margin:0}
+.qa-header-bar p{font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--text-muted);margin:4px 0 0}
+.header-actions{display:flex;gap:8px}
+.message-list{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px;background:#FFF;border:4px solid #000;box-shadow:var(--shadow)}
+.msg{border:3px solid #000;box-shadow:3px 3px 0px #000;padding:12px 20px;max-width:80%}
+.msg-user{align-self:flex-end;background:var(--brand-gold)}
+.msg-ai{align-self:flex-start;background:#FFF;border-left:5px solid var(--brand-coral)}
+.msg-role{display:block;font-family:var(--font-mono);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px}
+.msg-text{font-size:14px;font-weight:700;line-height:1.5;color:var(--text-primary);margin:0;white-space:pre-wrap}
+.msg-time{display:block;font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--text-muted);margin-top:10px;text-align:right}
+.empty-hint{font-family:var(--font-mono);font-size:14px;font-weight:700;color:var(--text-muted);text-align:center;padding:60px 0}
+.input-row{display:flex;gap:15px;padding:10px 12px;background:var(--brand-blue);border:4px solid #000;box-shadow:var(--shadow);flex-shrink:0}
+.input-row textarea{flex:1;padding:10px 14px;font-family:var(--font-mono);font-size:14px;font-weight:700;border:2px solid #000;resize:none;outline:none;min-height:44px}
+.input-row textarea:focus{box-shadow:3px 3px 0px var(--brand-coral);border-color:var(--brand-coral)}
+
+/* ---- HISTORY ---- */
+.history-inner{display:flex;flex-direction:column;gap:24px;max-width:1100px;width:100%}
+
+/* ---- LOGIN (no sidebar) ---- */
+.login-full{position:fixed;inset:0;background:var(--bg-cream);display:none;align-items:center;justify-content:center;z-index:100}
+.login-full.active{display:flex}
+.login-card{display:flex;background:#FFF;border:4px solid #000;box-shadow:7px 7px 0px #000;max-width:700px;width:100%;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.login-card:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0px #000}
+.brand-panel{width:270px;padding:40px 36px;background:var(--bg-sidebar);border-right:4px solid #000;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.brand-panel .login-logo{width:100px;height:100px;background:var(--brand-coral);border:3px solid #000;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;font-size:50px;color:#fff;font-weight:900;margin-bottom:16px}
+.brand-panel h2{font-size:42px;font-weight:900;letter-spacing:3px;margin:0;text-transform:uppercase}
+.subtitle{font-size:13px;font-weight:700;color:var(--text-muted);font-family:var(--font-mono);margin-top:4px}
+.form-panel{flex:1;padding:40px 40px;display:flex;align-items:center}
+.form-panel form{width:100%;display:flex;flex-direction:column;gap:18px}
+.form-panel label{font-family:var(--font-mono);font-size:13px;font-weight:900;color:var(--text-primary);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px}
+.form-panel .login-btn{width:60%;margin:8px auto 0;padding:14px;font-family:var(--font-mono);font-size:16px;font-weight:900;text-transform:uppercase;letter-spacing:4px;background:var(--brand-coral);color:#fff;border:2px solid #000;box-shadow:4px 4px 0px #000;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.form-panel .login-btn:hover{background:var(--brand-gold);color:#000;transform:translate(2px,2px);box-shadow:2px 2px 0px #000}
+.form-panel .login-btn:active{transform:translate(4px,4px);box-shadow:none}
+
+/* ===== TAB SWITCHER (dev only) ===== */
+.page-switcher{position:fixed;bottom:16px;right:16px;display:flex;gap:4px;z-index:200}
+.page-switcher button{padding:6px 14px;font-family:var(--font-mono);font-size:11px;font-weight:800;background:#FFF;border:2px solid #000;box-shadow:2px 2px 0px #000;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.page-switcher button:hover{background:var(--brand-gold);transform:translate(1px,1px);box-shadow:1px 1px 0px #000}
+.page-switcher button.on{background:#000;color:#fff}
+
+.hide-sidebar .sidebar{display:none}
+.hide-sidebar .main{margin-left:0}
+</style>
+</head>
+<body id="body">
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="brand-icon">L</div>
+    <span class="brand-name">LCRAG</span>
+  </div>
+  <nav class="nav-list">
+    <div class="nav-item" data-page="knowledge"><span class="nav-dot"></span> 知识库</div>
+    <div class="nav-item" data-page="upload"><span class="nav-dot"></span> 上传文档</div>
+    <div class="nav-item" data-page="qa"><span class="nav-dot"></span> 智能问答</div>
+    <div class="nav-item" data-page="history"><span class="nav-dot"></span> 历史记录</div>
+    <div class="nav-item" data-page="settings"><span class="nav-dot"></span> 设置</div>
+  </nav>
+  <div class="profile-area">
+    <div class="avatar">A</div>
+    <div>
+      <span class="user-name">Admin</span>
+      <span class="user-sig">Hello World!</span>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" style="background:var(--brand-blue)">
+
+  <!-- KNOWLEDGE -->
+  <div class="page-view active" id="page-knowledge">
+    <span class="page-label">KNOWLEDGE</span>
+    <div class="knowledge-inner">
+      <header class="page-header">
+        <div>
+          <h1>知识库</h1>
+          <p>查看和管理所有文档</p>
+        </div>
+        <div class="search-bar">
+          <input type="text" placeholder="搜索文档...">
+        </div>
+      </header>
+      <div class="table-card">
+        <table>
+          <thead><tr><th style="width:120px">类型</th><th>文件名</th><th style="width:180px">上传时间</th><th style="width:160px">操作</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-pdf">PDF</span></td><td>人工智能技术报告_2025.pdf</td><td>2025-05-18 14:30</td><td><button class="op-btn btn-blue" style="color:#fff">重命名</button><button class="op-btn btn-coral" style="color:#fff">删除</button></td></tr>
+            <tr><td><span class="badge badge-docx">DOCX</span></td><td>项目需求文档_V3.docx</td><td>2025-05-17 09:15</td><td><button class="op-btn btn-blue" style="color:#fff">重命名</button><button class="op-btn btn-coral" style="color:#fff">删除</button></td></tr>
+            <tr><td><span class="badge badge-md">MD</span></td><td>API接口文档.md</td><td>2025-05-16 16:42</td><td><button class="op-btn btn-blue" style="color:#fff">重命名</button><button class="op-btn btn-coral" style="color:#fff">删除</button></td></tr>
+            <tr><td><span class="badge badge-txt">TXT</span></td><td>会议纪要_20250515.txt</td><td>2025-05-15 11:08</td><td><button class="op-btn btn-blue" style="color:#fff">重命名</button><button class="op-btn btn-coral" style="color:#fff">删除</button></td></tr>
+            <tr><td><span class="badge badge-pdf">PDF</span></td><td>深度学习入门指南.pdf</td><td>2025-05-14 08:55</td><td><button class="op-btn btn-blue" style="color:#fff">重命名</button><button class="op-btn btn-coral" style="color:#fff">删除</button></td></tr>
+          </tbody>
+        </table>
+        <div class="table-footer">
+          <span>共 5 条</span>
+          <span style="display:flex;gap:8px">
+            <button class="op-btn" style="background:var(--bg-sidebar)">上一页</button>
+            <button class="op-btn" style="background:#000;color:#fff">1</button>
+            <button class="op-btn" style="background:var(--bg-sidebar)">下一页</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPLOAD -->
+  <div class="page-view" id="page-upload">
+    <span class="page-label">UPLOAD</span>
+    <div class="upload-layout">
+      <div class="dropzone">
+        <div class="dropzone-content">
+          <div class="upload-icon">⬆</div>
+          <span class="drop-text">拖拽文件到此处或点击选择</span>
+          <button class="btn btn-coral">选择文件</button>
+        </div>
+      </div>
+      <div class="queue-list">
+        <h2>上传列表</h2>
+        <div style="max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding-right:4px">
+          <div class="queue-item">
+            <span class="type-badge badge-pdf">PDF</span>
+            <div class="queue-info"><span class="queue-name">技术白皮书_v2.pdf</span><span class="queue-size">2.4 MB</span></div>
+            <span class="status-dot status-done"></span>
+          </div>
+          <div class="queue-item">
+            <span class="type-badge badge-docx">DOCX</span>
+            <div class="queue-info"><span class="queue-name">需求规格说明书.docx</span><span class="queue-size">1.8 MB</span></div>
+            <span class="status-dot status-wait"></span>
+          </div>
+          <div class="queue-item">
+            <span class="type-badge badge-md">MD</span>
+            <div class="queue-info"><span class="queue-name">开发规范.md</span><span class="queue-size">156 KB</span></div>
+            <span class="status-dot status-up"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QA -->
+  <div class="page-view" id="page-qa">
+    <span class="page-label">QA</span>
+    <div class="qa-inner">
+      <header class="qa-header-bar">
+        <div>
+          <h1>智能问答</h1>
+          <p>基于上传文档的知识库问答，每次对话为独立会话</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-blue" style="font-size:13px">保存对话</button>
+          <button class="btn btn-coral" style="font-size:13px">清除对话</button>
+        </div>
+      </header>
+      <div class="message-list">
+        <div class="msg msg-user">
+          <span class="msg-role">用户</span>
+          <p class="msg-text">什么是RAG技术？</p>
+          <time class="msg-time">14:22:05</time>
+        </div>
+        <div class="msg msg-ai">
+          <span class="msg-role">助手</span>
+          <p class="msg-text">RAG（Retrieval-Augmented Generation）是一种结合检索与生成的人工智能技术。它在生成回答前先从知识库中检索相关文档片段，然后基于这些片段生成更准确、更具时效性的回答。</p>
+          <time class="msg-time">14:22:08</time>
+        </div>
+        <div class="msg msg-user">
+          <span class="msg-role">用户</span>
+          <p class="msg-text">它和传统LLM有什么区别？</p>
+          <time class="msg-time">14:23:12</time>
+        </div>
+        <div class="msg msg-ai">
+          <span class="msg-role">助手</span>
+          <p class="msg-text">传统LLM仅依赖训练数据，知识有截止日期且可能产生幻觉。RAG通过实时检索外部知识库，能引用最新文档，显著提升准确性和可溯源性。</p>
+          <time class="msg-time">14:23:15</time>
+        </div>
+      </div>
+      <div class="input-row">
+        <textarea rows="1" placeholder="输入你的问题..."></textarea>
+        <button class="btn btn-coral" style="flex-shrink:0;padding:0 28px">发送</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="page-view" id="page-history">
+    <span class="page-label">HISTORY</span>
+    <div class="history-inner">
+      <header class="page-header">
+        <div>
+          <h1>历史记录</h1>
+          <p>浏览过往问答</p>
+        </div>
+      </header>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>问题</th><th style="min-width:320px">回答概要</th><th style="width:80px;text-align:center">来源</th></tr></thead>
+          <tbody>
+            <tr><td>什么是RAG技术？</td><td>RAG（Retrieval-Augmented Generation）是一种结合检索与生成的人工智能技术...</td><td style="text-align:center">有</td></tr>
+            <tr><td>如何优化向量检索性能？</td><td>可以通过调整chunk大小、选择合适的embedding模型、使用近似最近邻搜索算法等方式...</td><td style="text-align:center">有</td></tr>
+            <tr><td>深度学习与机器学习的区别</td><td>深度学习是机器学习的一个子集，它使用多层神经网络来自动学习数据的层次化特征表示...</td><td style="text-align:center">有</td></tr>
+            <tr><td>Transformer架构的核心是什么</td><td>Transformer的核心是自注意力机制（Self-Attention），它允许模型在处理序列时...</td><td style="text-align:center">无</td></tr>
+          </tbody>
+        </table>
+        <div class="table-footer">
+          <span>共 4 条</span>
+          <span style="display:flex;gap:8px">
+            <button class="op-btn" style="background:var(--bg-sidebar)">上一页</button>
+            <button class="op-btn" style="background:#000;color:#fff">1</button>
+            <button class="op-btn" style="background:var(--bg-sidebar)">下一页</button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="page-view" id="page-settings">
+    <span class="page-label">SETTINGS</span>
+    <div style="display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:32px;width:100%;max-width:1100px">
+      <section class="card" style="width:460px">
+        <h3 style="font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:3px solid #000">
+          <span style="width:28px;height:28px;border:2px solid #000;background:var(--brand-gold);flex-shrink:0"></span> 签名
+        </h3>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span class="input-label">个性签名</span>
+          <input class="input-field" type="text" placeholder="输入签名…" value="Hello World!">
+        </div>
+        <button class="btn btn-blue">保存</button>
+      </section>
+      <section class="card" style="width:460px">
+        <h3 style="font-size:18px;font-weight:900;text-transform:uppercase;letter-spacing:1px;display:flex;align-items:center;gap:10px;padding-bottom:8px;border-bottom:3px solid #000">
+          <span style="width:28px;height:28px;border:2px solid #000;background:var(--brand-coral);flex-shrink:0"></span> 模型配置
+        </h3>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span class="input-label">API URL</span>
+          <input class="input-field" type="text" placeholder="https://api.openai.com/v1">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span class="input-label">API Key</span>
+          <div style="position:relative">
+            <input class="input-field" type="password" placeholder="sk-················" value="sk-xxxxxxxxxxxx" style="padding-right:50px">
+            <button style="position:absolute;right:4px;top:4px;bottom:4px;width:42px;background:#f0f0f0;border:2px solid #000;font-family:var(--font-mono);font-size:14px;font-weight:800;cursor:pointer">显</button>
+          </div>
+        </div>
+        <button class="btn btn-blue">保存</button>
+      </section>
+      <section class="card" style="width:280px;align-self:stretch;justify-content:center">
+        <button class="btn btn-red" style="width:100%;padding:16px">退出登录</button>
+      </section>
+    </div>
+  </div>
+
+</main>
+
+<!-- LOGIN (fullscreen overlay) -->
+<div class="login-full" id="page-login">
+  <div class="login-card">
+    <div class="brand-panel">
+      <div class="login-logo">L</div>
+      <h2>LCRAG</h2>
+      <p class="subtitle">knowledge workspace</p>
+    </div>
+    <div class="form-panel">
+      <form>
+        <div>
+          <label>用户名</label>
+          <input class="input-field" type="text" placeholder="admin" style="margin-top:4px">
+        </div>
+        <div>
+          <label>密码</label>
+          <input class="input-field" type="password" placeholder="········" style="margin-top:4px">
+        </div>
+        <button type="button" class="login-btn">登 录</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE SWITCHER -->
+<div class="page-switcher">
+  <button onclick="switchPage('knowledge')">知识库</button>
+  <button onclick="switchPage('upload')">上传</button>
+  <button onclick="switchPage('qa')">问答</button>
+  <button onclick="switchPage('history')">历史</button>
+  <button onclick="switchPage('settings')">设置</button>
+  <button onclick="switchPage('login')">登录</button>
+</div>
+
+<script>
+function switchPage(page){
+  document.querySelectorAll('.page-view').forEach(p=>p.classList.remove('active'))
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'))
+  document.getElementById('page-login').classList.remove('active')
+
+  if(page==='login'){
+    document.getElementById('page-login').classList.add('active')
+    document.querySelectorAll('.page-switcher button').forEach(b=>b.classList.remove('on'))
+    document.querySelector('.page-switcher button:nth-child(6)').classList.add('on')
+    return
+  }
+  var pv=document.getElementById('page-'+page)
+  if(pv) pv.classList.add('active')
+  var nav=document.querySelector('.nav-item[data-page="'+page+'"]')
+  if(nav) nav.classList.add('active')
+  document.querySelectorAll('.page-switcher button').forEach(b=>b.classList.remove('on'))
+  var idx={knowledge:0,upload:1,qa:2,history:3,settings:4}[page]
+  document.querySelectorAll('.page-switcher button')[idx].classList.add('on')
+}
+switchPage('knowledge')
+</script>
+
+</body>
+</html>

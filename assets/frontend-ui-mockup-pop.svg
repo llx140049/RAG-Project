@@ -1,0 +1,202 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960">
+  <defs>
+    <!-- Halftone patterns at different densities -->
+    <pattern id="halftone-red" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.2" fill="#E85D4A" opacity="0.25"/>
+    </pattern>
+    <pattern id="halftone-blue" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="2.8" fill="#2C5F8A" opacity="0.20"/>
+    </pattern>
+    <pattern id="halftone-yellow" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.5" fill="#F0C050" opacity="0.30"/>
+    </pattern>
+    <pattern id="halftone-fine" width="5" height="5" patternUnits="userSpaceOnUse">
+      <circle cx="2.5" cy="2.5" r="1" fill="#1C1C1C" opacity="0.10"/>
+    </pattern>
+    <pattern id="stripes" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="6" height="12" fill="#F0C050" opacity="0.3"/>
+    </pattern>
+
+    <filter id="pop-shadow">
+      <feDropShadow dx="6" dy="6" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="0.85"/>
+    </filter>
+
+    <style>
+      .title { font: 900 34px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.5px; }
+      .title-outline { font: 900 34px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #F0C050; stroke: #1C1C1C; stroke-width: 2; paint-order: stroke; letter-spacing: -0.5px; }
+      .h2 { font: 800 18px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: 0; }
+      .h2-pop { font: 800 16px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #FFF; stroke: #1C1C1C; stroke-width: 1.5; paint-order: stroke; letter-spacing: 1px; text-transform: uppercase; }
+      .h3 { font: 700 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; }
+      .body { font: 500 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; }
+      .small { font: 600 11px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #555; }
+      .mono { font: 600 12px "Cascadia Mono", "Consolas", monospace; fill: #3D3D3D; }
+      .nav { font: 700 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; text-transform: uppercase; }
+      .nav-active { font: 800 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #E85D4A; text-transform: uppercase; }
+      .btn-text { font: 800 13px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #FFF; text-transform: uppercase; }
+      .logo-text { font: 800 18px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; }
+      .comic-burst { font: 900 11px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #FFF; text-transform: uppercase; }
+    </style>
+  </defs>
+
+  <!-- Background: halftone heaven -->
+  <rect width="1440" height="960" fill="#F9F6F0"/>
+  <rect width="1440" height="960" fill="url(#halftone-fine)"/>
+  <!-- Yellow accent blocks -->
+  <rect x="0" y="0" width="1440" height="8" fill="#F0C050"/>
+  <rect x="0" y="952" width="1440" height="8" fill="#E85D4A"/>
+
+  <!-- Main frame -->
+  <rect x="36" y="28" width="1368" height="912" fill="#FFF" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+
+  <!-- Sidebar with halftone -->
+  <rect x="36" y="28" width="232" height="912" fill="#F5F1EA" stroke="#1C1C1C" stroke-width="3"/>
+  <rect x="36" y="28" width="232" height="912" fill="url(#halftone-blue)"/>
+
+  <!-- Top accent strip on sidebar -->
+  <rect x="36" y="28" width="232" height="6" fill="#E85D4A"/>
+
+  <!-- Logo -->
+  <g transform="rotate(30, 84, 95)">
+    <circle cx="84" cy="95" r="21" fill="#FF2D20" stroke="#1C1C1C" stroke-width="3"/>
+    <circle cx="84" cy="95" r="21" fill="url(#halftone-yellow)"/>
+    <circle cx="100" cy="81" r="13" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="3"/>
+    <circle cx="68" cy="81" r="10" fill="#F0C050" stroke="#1C1C1C" stroke-width="3"/>
+  </g>
+  <text x="124" y="88" class="logo-text">Codex RAG</text>
+  <text x="124" y="106" class="small">KNOWLEDGE WORKSPACE</text>
+
+  <!-- Nav items with pop art flair -->
+  <!-- Active: speech-bubble-like -->
+  <rect x="60" y="152" width="176" height="44" rx="22" fill="#E85D4A" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+  <rect x="60" y="152" width="176" height="44" rx="22" fill="url(#halftone-yellow)"/>
+  <!-- Speech bubble tail -->
+  <polygon points="148,196 140,212 156,212" fill="#E85D4A" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="96" y="180" class="btn-text" font-size="13">知识库</text>
+
+  <text x="96" y="238" class="nav">上传文档</text>
+  <text x="96" y="294" class="nav">智能问答</text>
+  <text x="96" y="350" class="nav">历史记录</text>
+  <text x="96" y="406" class="nav">设置</text>
+
+  <!-- Profile: comic panel -->
+  <rect x="60" y="836" width="176" height="68" fill="#FFF" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+  <rect x="60" y="836" width="176" height="68" fill="url(#halftone-yellow)"/>
+  <rect x="80" y="856" width="26" height="26" rx="13" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="93" y="874" font-family="Inter" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">A</text>
+  <text x="118" y="870" class="h3" font-size="13">admin</text>
+  <text x="118" y="888" class="small">ONLINE</text>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <!-- Comic-style header bar -->
+  <rect x="326" y="50" width="1090" height="52" fill="#F0C050" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+  <rect x="326" y="50" width="1090" height="52" fill="url(#stripes)"/>
+  <text x="358" y="84" class="title-outline" font-size="26">KNOWLEDGE BASE</text>
+
+  <!-- POW! burst decoration -->
+  <circle cx="1330" cy="70" r="22" fill="#E85D4A" stroke="#1C1C1C" stroke-width="3"/>
+  <circle cx="1330" cy="70" r="22" fill="url(#halftone-yellow)"/>
+  <text x="1321" y="76" class="comic-burst" font-size="10">6</text>
+
+  <!-- Search bar with pop art twist -->
+  <rect x="326" y="124" width="1090" height="48" fill="#FFF" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+  <rect x="326" y="124" width="1090" height="48" fill="url(#halftone-fine)"/>
+  <circle cx="352" cy="148" r="7" fill="none" stroke="#E85D4A" stroke-width="2"/>
+  <text x="370" y="153" class="body" fill="#999">搜索文档名称或内容...</text>
+  <!-- Search icon: comic magnifying glass -->
+  <line x1="358" y1="154" x2="365" y2="161" stroke="#E85D4A" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Filter chips -->
+  <rect x="1260" y="136" width="52" height="24" rx="12" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="1274" y="152" font-family="Inter" font-size="10" font-weight="800" fill="#E85D4A">PDF</text>
+  <rect x="1322" y="136" width="52" height="24" rx="12" fill="#E4ECF5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="1334" y="152" font-family="Inter" font-size="10" font-weight="800" fill="#2C5F8A">ALL</text>
+
+  <!-- Table with halftone header -->
+  <rect x="326" y="196" width="1090" height="496" fill="#FFF" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+
+  <!-- Table header: color blocks -->
+  <rect x="326" y="196" width="1090" height="42" fill="#1C1C1C"/>
+  <rect x="326" y="196" width="1090" height="42" fill="url(#halftone-yellow)"/>
+  <text x="358" y="222" class="h2-pop" font-size="11">类型</text>
+  <text x="450" y="222" class="h2-pop" font-size="11">文档名</text>
+  <text x="980" y="222" class="h2-pop" font-size="11">大小</text>
+  <text x="1150" y="222" class="h2-pop" font-size="11">上传时间</text>
+
+  <!-- Row 1 -->
+  <line x1="326" y1="280" x2="1416" y2="280" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="358" y="252" width="40" height="26" rx="4" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="358" y="252" width="40" height="26" rx="4" fill="url(#halftone-red)"/>
+  <text x="370" y="270" font-family="Inter" font-size="10" font-weight="800" fill="#E85D4A">PDF</text>
+  <text x="450" y="270" class="h3">RAG 技术详解.pdf</text>
+  <text x="980" y="270" class="mono">3.2 MB</text>
+  <text x="1150" y="270" class="mono">2025-05-19 14:32</text>
+
+  <!-- Row 2 -->
+  <line x1="326" y1="322" x2="1416" y2="322" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="358" y="294" width="40" height="26" rx="4" fill="#E4ECF5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="366" y="312" font-family="Inter" font-size="10" font-weight="800" fill="#2C5F8A">DOCX</text>
+  <text x="450" y="312" class="h3">向量数据库概览.docx</text>
+  <text x="980" y="312" class="mono">1.8 MB</text>
+  <text x="1150" y="312" class="mono">2025-05-18 10:11</text>
+
+  <!-- Row 3 -->
+  <line x1="326" y1="364" x2="1416" y2="364" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="358" y="336" width="40" height="26" rx="4" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="368" y="354" font-family="Inter" font-size="10" font-weight="800" fill="#3D3D3D">MD</text>
+  <text x="450" y="354" class="h3">LangChain 入门.md</text>
+  <text x="980" y="354" class="mono">0.5 MB</text>
+  <text x="1150" y="354" class="mono">2025-05-17 16:45</text>
+
+  <!-- Row 4 -->
+  <line x1="326" y1="406" x2="1416" y2="406" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="358" y="378" width="40" height="26" rx="4" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="367" y="396" font-family="Inter" font-size="10" font-weight="800" fill="#3D3D3D">TXT</text>
+  <text x="450" y="396" class="h3">术语表.txt</text>
+  <text x="980" y="396" class="mono">0.1 MB</text>
+  <text x="1150" y="396" class="mono">2025-05-16 09:22</text>
+
+  <!-- Row 5 -->
+  <line x1="326" y1="448" x2="1416" y2="448" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="358" y="420" width="40" height="26" rx="4" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="358" y="420" width="40" height="26" rx="4" fill="url(#halftone-red)"/>
+  <text x="370" y="438" font-family="Inter" font-size="10" font-weight="800" fill="#E85D4A">PDF</text>
+  <text x="450" y="438" class="h3">Embedding 原理与实践.pdf</text>
+  <text x="980" y="438" class="mono">4.6 MB</text>
+  <text x="1150" y="438" class="mono">2025-05-15 11:03</text>
+
+  <!-- Row 6 -->
+  <line x1="326" y1="490" x2="1416" y2="490" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="358" y="462" width="40" height="26" rx="4" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="368" y="480" font-family="Inter" font-size="10" font-weight="800" fill="#3D3D3D">MD</text>
+  <text x="450" y="480" class="h3">ChromaDB 使用手册.md</text>
+  <text x="980" y="480" class="mono">0.9 MB</text>
+  <text x="1150" y="480" class="mono">2025-05-14 15:55</text>
+
+  <!-- Pagination: comic bubble style -->
+  <text x="358" y="668" class="small">共 6 条</text>
+  <rect x="1300" y="652" width="34" height="30" rx="15" fill="#FFF" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="1310" y="672" class="mono">←</text>
+  <rect x="1340" y="652" width="34" height="30" rx="15" fill="#E85D4A" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="1340" y="652" width="34" height="30" rx="15" fill="url(#halftone-yellow)"/>
+  <text x="1352" y="672" font-family="Inter" font-size="12" font-weight="800" fill="#FFF">1</text>
+
+  <!-- Bottom status: halftone bar -->
+  <rect x="326" y="720" width="1090" height="44" fill="#FFF" stroke="#1C1C1C" stroke-width="3" filter="url(#pop-shadow)"/>
+  <rect x="326" y="720" width="1090" height="44" fill="url(#halftone-blue)"/>
+  <text x="358" y="746" class="mono">collection: user_7  •  vector_store: chroma_db  •  embedding: BAAI/bge-small-zh-v1.5</text>
+
+  <!-- Decorative pop art elements -->
+  <!-- Comic rays in corner -->
+  <polygon points="1380,870 1390,820 1400,870 1420,820 1410,870" fill="#F0C050" stroke="#1C1C1C" stroke-width="2" opacity="0.6"/>
+  <polygon points="1385,865 1395,820 1405,865" fill="#E85D4A" stroke="#1C1C1C" stroke-width="2" opacity="0.5"/>
+
+  <!-- Halftone dots cluster (decorative) -->
+  <circle cx="260" cy="420" r="4" fill="#E85D4A" opacity="0.3"/>
+  <circle cx="274" cy="408" r="3" fill="#2C5F8A" opacity="0.25"/>
+  <circle cx="250" cy="440" r="5" fill="#F0C050" opacity="0.35"/>
+  <circle cx="268" cy="450" r="2.5" fill="#E85D4A" opacity="0.2"/>
+
+  <!-- WOW! accent -->
+  <rect x="1220" y="780" width="80" height="36" rx="8" fill="#F0C050" stroke="#1C1C1C" stroke-width="3" transform="rotate(-8, 1260, 798)" filter="url(#pop-shadow)"/>
+  <text x="1236" y="803" class="comic-burst" font-size="14" transform="rotate(-8, 1260, 798)">RAG!</text>
+</svg>

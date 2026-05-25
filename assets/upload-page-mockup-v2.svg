@@ -1,0 +1,118 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960">
+  <defs>
+    <pattern id="benday-btn" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#1C1C1C" opacity="0.25"/>
+    </pattern>
+    <pattern id="benday-yellow" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1" fill="#1C1C1C" opacity="0.2"/>
+    </pattern>
+    <filter id="hard-shadow">
+      <feDropShadow dx="5" dy="5" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="1"/>
+    </filter>
+    <filter id="hard-shadow-sm">
+      <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="1"/>
+    </filter>
+    <style>
+      .title { font: 800 30px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.5px; }
+      .h2 { font: 800 18px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.2px; }
+      .h3 { font: 700 15px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.1px; }
+      .body { font: 500 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; letter-spacing: 0; }
+      .small { font: 600 11px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #555; letter-spacing: 0; }
+      .mono { font: 600 12px "Cascadia Mono", "Consolas", monospace; fill: #3D3D3D; letter-spacing: 0; }
+      .nav { font: 700 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; letter-spacing: 0; text-transform: uppercase; }
+      .nav-active { font: 700 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: 0; text-transform: uppercase; }
+      .btn-text { font: 800 13px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #FFFFFF; letter-spacing: 0.5px; text-transform: uppercase; }
+      .logo-text { font: 800 18px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.3px; }
+      .upload-name { font: 600 13px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="960" fill="#F9F6F0"/>
+  <rect x="32" y="24" width="1376" height="912" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow)"/>
+  <rect x="32" y="24" width="232" height="912" fill="#F5F1EA" stroke="#1C1C1C" stroke-width="3"/>
+
+  <g transform="rotate(30, 84, 95)">
+    <circle cx="84" cy="95" r="21" fill="#FF2D20" stroke="#1C1C1C" stroke-width="3"/>
+    <circle cx="100" cy="81" r="13" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="3"/>
+    <circle cx="68" cy="81" r="10" fill="#F0C050" stroke="#1C1C1C" stroke-width="3"/>
+  </g>
+  <text x="124" y="88" class="logo-text">Codex RAG</text>
+  <text x="124" y="106" class="small">KNOWLEDGE WORKSPACE</text>
+
+  <text x="96" y="178" class="nav">知识库</text>
+  <rect x="60" y="210" width="176" height="44" fill="#F0C050" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <rect x="60" y="210" width="176" height="44" fill="url(#benday-yellow)"/>
+  <text x="80" y="238" class="nav-active">上传文档</text>
+  <text x="96" y="292" class="nav">智能问答</text>
+  <text x="96" y="346" class="nav">历史记录</text>
+
+  <rect x="60" y="840" width="176" height="60" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <rect x="80" y="858" width="24" height="24" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="92" y="875" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">A</text>
+  <text x="116" y="870" class="h3" font-size="13">admin</text>
+  <text x="116" y="887" class="small">ONLINE</text>
+
+  <text x="326" y="88" class="title">上传文档</text>
+  <text x="326" y="116" class="body">选择本地文件，完成解析、切块和向量入库</text>
+
+  <rect x="326" y="160" width="730" height="640" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <rect x="340" y="174" width="702" height="612" fill="none" stroke="#1C1C1C" stroke-width="2" stroke-dasharray="12 10"/>
+
+  <circle cx="691" cy="380" r="52" fill="#F5F1EA" stroke="#1C1C1C" stroke-width="3"/>
+  <circle cx="681" cy="368" r="2.2" fill="#E85D4A"/>
+  <circle cx="701" cy="376" r="2.8" fill="#2C5F8A"/>
+  <circle cx="688" cy="392" r="2.2" fill="#F0C050"/>
+  <path d="M691 434v-60M663 396l28-28 28 28" stroke="#1C1C1C" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <text x="604" y="500" class="h2">拖拽文件到这里</text>
+  <text x="582" y="530" class="body">PDF、DOCX、TXT、Markdown</text>
+
+  <rect x="550" y="562" width="48" height="32" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="2.5"/>
+  <text x="560" y="583" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#E85D4A">PDF</text>
+  <rect x="610" y="562" width="48" height="32" fill="#E4ECF5" stroke="#1C1C1C" stroke-width="2.5"/>
+  <text x="618" y="583" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#2C5F8A">DOCX</text>
+  <rect x="670" y="562" width="48" height="32" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2.5"/>
+  <text x="683" y="583" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#3D3D3D">TXT</text>
+  <rect x="730" y="562" width="48" height="32" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2.5"/>
+  <text x="743" y="583" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#3D3D3D">MD</text>
+
+  <text x="590" y="628" class="small">单个文件最大 50MB · 上传后自动解析、切块、写入 ChromaDB</text>
+
+  <rect x="590" y="664" width="202" height="52" fill="#E85D4A" stroke="#1C1C1C" stroke-width="4" filter="url(#hard-shadow)"/>
+  <rect x="590" y="664" width="202" height="52" fill="url(#benday-btn)"/>
+  <text x="660" y="696" class="btn-text" font-size="14">选择文件</text>
+
+  <rect x="1084" y="160" width="308" height="640" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <text x="1112" y="200" class="h2">上传列表</text>
+
+  <rect x="1112" y="230" width="252" height="82" fill="#FAF8F5" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="1112" y="252" width="28" height="20" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="1.5"/>
+  <text x="1120" y="266" font-family="Inter" font-size="8" font-weight="800" fill="#E85D4A">PDF</text>
+  <text x="1152" y="264" class="upload-name">需求说明.pdf</text>
+  <text x="1152" y="282" class="small">3.2 MB</text>
+  <rect x="1130" y="294" width="216" height="8" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="1130" y="294" width="140" height="8" fill="#E85D4A"/>
+  <text x="1342" y="264" class="small" fill="#E85D4A" font-weight="800">65%</text>
+
+  <rect x="1112" y="326" width="252" height="82" fill="#FAF8F5" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="1112" y="348" width="28" height="20" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="1.5"/>
+  <text x="1120" y="362" font-family="Inter" font-size="8" font-weight="800" fill="#3D3D3D">MD</text>
+  <text x="1152" y="360" class="upload-name">产品知识库.md</text>
+  <text x="1152" y="378" class="small">0.5 MB</text>
+  <rect x="1130" y="390" width="216" height="8" fill="#4A8C6F"/>
+  <text x="1330" y="360" class="small" fill="#4A8C6F" font-weight="800">完成 ✓</text>
+
+  <rect x="1112" y="422" width="252" height="62" fill="#FAF8F5" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="1112" y="440" width="28" height="20" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="1.5"/>
+  <text x="1120" y="454" font-family="Inter" font-size="8" font-weight="800" fill="#3D3D3D">TXT</text>
+  <text x="1152" y="452" class="upload-name">会议纪要.txt</text>
+  <text x="1152" y="470" class="small">0.1 MB</text>
+  <text x="1316" y="452" class="small" fill="#999" font-weight="800">等待中</text>
+
+  <rect x="1112" y="498" width="252" height="62" fill="#FAF8F5" stroke="#1C1C1C" stroke-width="2"/>
+  <rect x="1112" y="516" width="28" height="20" fill="#E4ECF5" stroke="#1C1C1C" stroke-width="1.5"/>
+  <text x="1119" y="530" font-family="Inter" font-size="8" font-weight="800" fill="#2C5F8A">DOCX</text>
+  <text x="1152" y="528" class="upload-name">技术方案.docx</text>
+  <text x="1152" y="546" class="small">1.8 MB</text>
+  <text x="1316" y="528" class="small" fill="#999" font-weight="800">等待中</text>
+</svg>

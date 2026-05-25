@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCRAG · 设置 — 粗野风效果图</title>
+<style>
+  :root {
+    --brand-coral: #E85D4A;
+    --brand-blue: #2C5F8A;
+    --brand-gold: #F0C050;
+    --bg-cream: #F9F6F0;
+    --bg-sidebar: #F5F1EA;
+    --border-warm: #000000;
+    --shadow: 5px 5px 0px #000000;
+    --shadow-sm: 4px 4px 0px #000000;
+    --text-primary: #1C1C1C;
+    --text-muted: #666666;
+    --font-heading: "Arial Black", "Impact", sans-serif;
+    --font-mono: "Courier New", "Consolas", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-cream);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 230px;
+    min-width: 230px;
+    background: var(--bg-sidebar);
+    border-right: 3px solid var(--border-warm);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 20px 16px 28px;
+  }
+  .brand-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--brand-coral);
+    border: 3px solid var(--border-warm);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+  }
+  .brand-name {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 3px;
+  }
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 16px;
+    flex: 1;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 800;
+    border: 2px solid var(--border-warm);
+    box-shadow: var(--shadow-sm);
+    cursor: default;
+  }
+  .nav-item.active { background: var(--brand-gold); }
+  .nav-dot {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-warm);
+    flex-shrink: 0;
+  }
+  .nav-item:nth-child(1) .nav-dot { background: var(--brand-blue); }
+  .nav-item:nth-child(2) .nav-dot { background: var(--brand-coral); }
+  .nav-item:nth-child(3) .nav-dot { background: var(--brand-gold); }
+  .nav-item:nth-child(4) .nav-dot { background: #8B5CF6; }
+  .nav-item.active .nav-dot { background: #000; }
+
+  .profile-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 16px 20px;
+    margin-top: auto;
+    border-top: 3px solid var(--border-warm);
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-warm);
+    border-radius: 50%;
+    background: var(--brand-blue);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 900;
+  }
+  .profile-info .user-name { font-size: 16px; font-weight: 900; display: block; }
+  .profile-info .user-sig { font-size: 11px; font-weight: 700; color: var(--text-muted); display: block; font-family: var(--font-mono); }
+
+  .main {
+    flex: 1;
+    background: var(--brand-blue);
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px);
+    pointer-events: none;
+  }
+
+  .settings-grid {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 32px;
+    padding: 60px 40px 40px;
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .card {
+    background: #FFFFFF;
+    border: 3px solid #000000;
+    box-shadow: var(--shadow);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 7px 7px 0px #000;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #000;
+  }
+  .card-title .icon-block {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #000;
+    flex-shrink: 0;
+  }
+  .signature-card { width: 460px; }
+  .signature-card .icon-block { background: var(--brand-gold); }
+  .model-card { width: 460px; }
+  .model-card .icon-block { background: var(--brand-coral); }
+  .logout-card {
+    width: 280px;
+    align-self: stretch;
+    justify-content: space-between;
+  }
+  .logout-card .icon-block { background: #DC2626; }
+
+  .input-group { display: flex; flex-direction: column; gap: 6px; }
+  .input-label {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .input-field {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: #fff;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    outline: none;
+  }
+  .input-field:focus { background: #FFF9E6; box-shadow: 4px 4px 0px #000; transform: translate(-1px, -1px); }
+  .input-field::placeholder { color: #aaa; font-weight: 400; font-style: italic; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid #000;
+    box-shadow: 3px 3px 0px #000;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #000; }
+  .btn:active { transform: translate(3px, 3px); box-shadow: none; }
+  .btn-save { background: var(--brand-blue); color: #fff; align-self: flex-start; }
+  .btn-danger { background: #DC2626; color: #fff; width: 100%; }
+
+  .page-label {
+    position: absolute;
+    top: 24px;
+    left: 40px;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 3px 3px 0px rgba(0,0,0,0.3);
+  }
+
+  .brutal-stripe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 100%;
+    background: repeating-linear-gradient(135deg, var(--brand-gold), var(--brand-gold) 12px, #000 12px, #000 14px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  .input-wrapper { position: relative; }
+  .input-wrapper .input-field { padding-right: 50px; }
+  .toggle-vis {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 42px;
+    background: #f0f0f0;
+    border: 2px solid #000;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .accent-dots { display: flex; gap: 8px; margin-top: 4px; }
+  .accent-dots span { width: 10px; height: 10px; border: 2px solid #000; }
+  .accent-dots span:nth-child(1) { background: var(--brand-gold); }
+  .accent-dots span:nth-child(2) { background: var(--brand-coral); }
+  .accent-dots span:nth-child(3) { background: var(--brand-blue); }
+</style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">L</div>
+      <span class="brand-name">LCRAG</span>
+    </div>
+    <nav class="nav-list">
+      <div class="nav-item"><span class="nav-dot"></span> 知识库</div>
+      <div class="nav-item"><span class="nav-dot"></span> 上传文档</div>
+      <div class="nav-item"><span class="nav-dot"></span> 智能问答</div>
+      <div class="nav-item"><span class="nav-dot"></span> 历史记录</div>
+      <div class="nav-item active"><span class="nav-dot"></span> 设置</div>
+    </nav>
+    <div class="profile-area">
+      <div class="avatar">A</div>
+      <div class="profile-info">
+        <span class="user-name">Admin</span>
+        <span class="user-sig">Hello World!</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="brutal-stripe"></div>
+    <span class="page-label">SETTINGS</span>
+    <div class="settings-grid">
+
+      <section class="card signature-card">
+        <h3 class="card-title"><span class="icon-block"></span> 签名</h3>
+        <div class="input-group">
+          <label class="input-label">个性签名</label>
+          <input class="input-field" type="text" placeholder="输入签名…" value="Hello World!">
+        </div>
+        <button class="btn btn-save">保存</button>
+        <div class="accent-dots"><span></span><span></span><span></span></div>
+      </section>
+
+      <section class="card model-card">
+        <h3 class="card-title"><span class="icon-block"></span> 模型配置</h3>
+        <div class="input-group">
+          <label class="input-label">API URL</label>
+          <input class="input-field" type="text" placeholder="https://api.openai.com/v1">
+        </div>
+        <div class="input-group">
+          <label class="input-label">API Key</label>
+          <div class="input-wrapper">
+            <input class="input-field" type="password" placeholder="sk-················" value="sk-xxxxxxxxxxxx">
+            <button class="toggle-vis">👁</button>
+          </div>
+        </div>
+        <button class="btn btn-save">保存</button>
+      </section>
+
+      <section class="card logout-card">
+        <h3 class="card-title"><span class="icon-block"></span> 账户</h3>
+        <div class="input-group" style="flex:1;justify-content:center;">
+          <p style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);line-height:1.6;">
+            当前登录：<strong style="color:#000;">Admin</strong><br>
+            退出后需重新认证
+          </p>
+        </div>
+        <button class="btn btn-danger">退出登录</button>
+      </section>
+
+    </div>
+  </main>
+
+</body>
+</html>

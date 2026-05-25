@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LCRAG · 知识库</title>
+<style>
+:root{--coral:#E85D4A;--blue:#2C5F8A;--gold:#F0C050;--bg-cream:#F9F6F0;--bg-sidebar:#F5F1EA;--shadow:5px 5px 0px #000;--shadow-sm:4px 4px 0px #000;--text:#1C1C1C;--muted:#666;--font:"Arial Black","Impact",sans-serif;--mono:"Courier New","Consolas",monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);font-weight:700;color:var(--text);background:var(--bg-cream);display:flex;height:100vh;overflow:hidden}
+.sidebar{display:flex;flex-direction:column;width:230px;min-width:230px;background:var(--bg-sidebar);border-right:3px solid #000}
+.brand{display:flex;align-items:center;justify-content:center;gap:12px;padding:20px 16px 28px}
+.brand-icon{width:44px;height:44px;background:var(--coral);border:3px solid #000;box-shadow:var(--shadow-sm);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#fff}
+.brand-name{font-size:22px;font-weight:900;letter-spacing:3px}
+.nav-list{display:flex;flex-direction:column;gap:12px;padding:0 16px;flex:1}
+.nav-item{display:flex;align-items:center;gap:10px;padding:14px 16px;font-size:15px;font-weight:800;border:2px solid #000;box-shadow:var(--shadow-sm);cursor:default}
+.nav-item.active{background:var(--gold)}
+.nav-dot{width:20px;height:20px;border:2px solid #000;flex-shrink:0}
+.nav-item:nth-child(1) .nav-dot{background:var(--blue)}.nav-item:nth-child(2) .nav-dot{background:var(--coral)}.nav-item:nth-child(3) .nav-dot{background:var(--gold)}.nav-item:nth-child(4) .nav-dot{background:#8B5CF6}.nav-item.active .nav-dot{background:#000}
+.profile-area{display:flex;align-items:center;gap:10px;padding:16px 16px 20px;margin-top:auto;border-top:3px solid #000}
+.avatar{width:40px;height:40px;border:3px solid #000;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900}
+.user-name{font-size:16px;font-weight:900;display:block}.user-sig{font-size:11px;font-weight:700;color:var(--muted);display:block;font-family:var(--mono)}
+
+.main{flex:1;background:var(--bg-cream);overflow-y:auto;position:relative}
+.page-label{position:absolute;top:24px;left:40px;font-size:35px;font-weight:900;color:var(--text);letter-spacing:2px;text-transform:uppercase;text-shadow:3px 3px 0px #000;z-index:1}
+
+.content{padding:90px 40px 40px;max-width:1100px}
+
+/* Header */
+.page-header{display:flex;align-items:center;justify-content:space-between;background:var(--gold);border:3px solid #000;box-shadow:var(--shadow);padding:12px 28px;margin-bottom:20px}
+.header-left{display:flex;flex-direction:column;align-items:flex-start}
+.header-left h1{font-size:28px;font-weight:900;letter-spacing:6px;margin:0;text-transform:uppercase}
+.header-left p{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted);margin:4px 0 0}
+.search-bar{width:250px;border:2px solid #000;box-shadow:3px 3px 0px #000;background:#fff}
+.search-bar input{width:100%;padding:10px 14px;border:none;outline:none;font-family:var(--mono);font-size:14px;font-weight:700;background:transparent}
+
+/* Table Card */
+.table-card{background:#fff;border:3px solid #000;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+.table-card:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0px #000}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{font-family:var(--mono);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:var(--muted);padding:16px 20px;text-align:left;border-bottom:4px solid #000}
+tbody td{padding:14px 20px;border-bottom:2px solid #000;font-weight:700}
+tbody tr:nth-child(even){background:#fafafa}
+tbody tr:hover{background:#FFF9E6}
+.badge{display:inline-block;padding:3px 12px;font-family:var(--mono);font-size:12px;font-weight:800;border:2px solid #000;box-shadow:2px 2px 0px #000}
+.badge.pdf{background:var(--coral);color:#fff}.badge.docx{background:var(--blue);color:#fff}.badge.md{background:var(--gold);color:#000}.badge.txt{background:#E8E3D9;color:#000}
+.date-cell{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:6px 14px;font-family:var(--mono);font-size:12px;font-weight:800;text-transform:uppercase;border:2px solid #000;box-shadow:2px 2px 0px #000;cursor:pointer;transition:transform .1s,box-shadow .1s}
+.btn:hover{transform:translate(2px,2px);box-shadow:1px 1px 0px #000}
+.btn:active{transform:translate(3px,3px);box-shadow:none}
+.btn-rename{background:var(--blue);color:#fff}
+.btn-delete{background:var(--coral);color:#fff}
+
+.table-footer{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-top:3px solid #000;font-family:var(--mono);font-size:13px;font-weight:700}
+.pages{display:flex;gap:8px}
+.pages span{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:2px solid #000;font-weight:800;cursor:pointer}
+.pages span.active{background:var(--gold)}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+<div class="brand"><div class="brand-icon">L</div><span class="brand-name">LCRAG</span></div>
+<nav class="nav-list">
+<div class="nav-item active"><span class="nav-dot"></span> 知识库</div>
+<div class="nav-item"><span class="nav-dot"></span> 上传文档</div>
+<div class="nav-item"><span class="nav-dot"></span> 智能问答</div>
+<div class="nav-item"><span class="nav-dot"></span> 历史记录</div>
+<div class="nav-item"><span class="nav-dot"></span> 设置</div>
+</nav>
+<div class="profile-area"><div class="avatar">A</div><div><span class="user-name">Admin</span><span class="user-sig">Hello World!</span></div></div>
+</aside>
+
+<main class="main">
+<span class="page-label">KNOWLEDGE</span>
+<div class="content">
+<header class="page-header">
+<div class="header-left"><h1>知识库</h1><p>查看和管理所有文档</p></div>
+<div class="search-bar"><input type="text" placeholder="搜索文档.."></div>
+</header>
+<div class="table-card">
+<table>
+<thead><tr><th>类型</th><th>文件名</th><th>上传时间</th><th>操作</th></tr></thead>
+<tbody>
+<tr><td><span class="badge pdf">PDF</span></td><td>论文_基于RAG的知识增强.pdf</td><td class="date-cell">2025-5-20 19:34</td><td><button class="btn btn-rename">重命名</button><button class="btn btn-delete" style="margin-left:8px">删除</button></td></tr>
+<tr><td><span class="badge docx">DOCX</span></td><td>项目报告_智能问答系统设计.docx</td><td class="date-cell">2025-5-19 15:12</td><td><button class="btn btn-rename">重命名</button><button class="btn btn-delete" style="margin-left:8px">删除</button></td></tr>
+<tr><td><span class="badge md">MD</span></td><td>README_模型部署说明.md</td><td class="date-cell">2025-5-18 10:08</td><td><button class="btn btn-rename">重命名</button><button class="btn btn-delete" style="margin-left:8px">删除</button></td></tr>
+<tr><td><span class="badge txt">TXT</span></td><td>测试数据集_v2.txt</td><td class="date-cell">2025-5-17 22:41</td><td><button class="btn btn-rename">重命名</button><button class="btn btn-delete" style="margin-left:8px">删除</button></td></tr>
+<tr><td><span class="badge pdf">PDF</span></td><td>文献综述_大语言模型进展.pdf</td><td class="date-cell">2025-5-16 08:55</td><td><button class="btn btn-rename">重命名</button><button class="btn btn-delete" style="margin-left:8px">删除</button></td></tr>
+</tbody>
+</table>
+<div class="table-footer"><span>共 5 条</span><div class="pages"><span>‹</span><span class="active">1</span><span>›</span></div></div>
+</div>
+</div>
+</main>
+</body>
+</html>

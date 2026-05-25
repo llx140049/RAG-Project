@@ -1,0 +1,13 @@
+.env
+rag.db
+__pycache__/
+*.pyc
+chroma_db/
+uploads/
+tmp/
+venv/
+.venv/
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.log

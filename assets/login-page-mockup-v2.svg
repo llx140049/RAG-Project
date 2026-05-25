@@ -1,0 +1,51 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960">
+  <defs>
+    <pattern id="benday-btn" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#1C1C1C" opacity="0.25"/>
+    </pattern>
+    <filter id="hard-shadow">
+      <feDropShadow dx="5" dy="5" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="1"/>
+    </filter>
+    <filter id="hard-shadow-sm">
+      <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="1"/>
+    </filter>
+    <style>
+      .title { font: 800 34px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.5px; }
+      .body { font: 500 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; letter-spacing: 0; }
+      .btn-text { font: 800 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #FFFFFF; letter-spacing: 1px; text-transform: uppercase; }
+      .logo-text { font: 800 28px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.4px; }
+      .tagline { font: 500 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; letter-spacing: 0; }
+      .input-label { font: 700 13px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="960" fill="#F9F6F0"/>
+  <rect x="118" y="70" width="1204" height="820" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow)"/>
+  <rect x="118" y="70" width="480" height="820" fill="#F5F1EA" stroke="#1C1C1C" stroke-width="3"/>
+
+  <g transform="rotate(30, 358, 310)">
+    <circle cx="358" cy="310" r="54" fill="#FF2D20" stroke="#1C1C1C" stroke-width="4"/>
+    <circle cx="398" cy="278" r="34" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="4"/>
+    <circle cx="318" cy="278" r="24" fill="#F0C050" stroke="#1C1C1C" stroke-width="4"/>
+  </g>
+
+  <text x="358" y="400" class="logo-text" text-anchor="middle">Codex RAG</text>
+  <text x="358" y="430" class="tagline" text-anchor="middle">基于检索增强生成的智能知识库系统</text>
+
+  <text x="714" y="174" class="title">WELCOME BACK</text>
+  <text x="714" y="208" class="body">登录</text>
+
+  <text x="714" y="254" class="input-label">用户名</text>
+  <rect x="714" y="264" width="420" height="50" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3"/>
+  <text x="736" y="294" class="body" fill="#999">输入用户名</text>
+
+  <text x="714" y="344" class="input-label">密码</text>
+  <rect x="714" y="354" width="420" height="50" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3"/>
+  <text x="736" y="384" class="body" fill="#999">输入密码</text>
+
+  <text x="714" y="436" class="body">没有账号？<tspan font-weight="800" fill="#1C1C1C" text-decoration="underline">立即注册</tspan></text>
+
+  <rect x="714" y="460" width="420" height="54" fill="#E85D4A" stroke="#1C1C1C" stroke-width="4" filter="url(#hard-shadow)"/>
+  <rect x="714" y="460" width="420" height="54" fill="url(#benday-btn)"/>
+  <text x="906" y="494" class="btn-text">登录</text>
+</svg>

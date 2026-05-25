@@ -1,0 +1,123 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="960" viewBox="0 0 1440 960">
+  <defs>
+    <pattern id="benday-btn" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#1C1C1C" opacity="0.25"/>
+    </pattern>
+    <pattern id="benday-nav" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.2" fill="#1C1C1C" opacity="0.15"/>
+    </pattern>
+    <pattern id="benday-yellow" width="6" height="6" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1" fill="#1C1C1C" opacity="0.2"/>
+    </pattern>
+    <filter id="hard-shadow">
+      <feDropShadow dx="5" dy="5" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="1"/>
+    </filter>
+    <filter id="hard-shadow-sm">
+      <feDropShadow dx="3" dy="3" stdDeviation="0" flood-color="#1C1C1C" flood-opacity="1"/>
+    </filter>
+    <style>
+      .title { font: 800 30px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.5px; }
+      .h3 { font: 700 15px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.1px; }
+      .body { font: 500 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; letter-spacing: 0; }
+      .small { font: 600 11px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #555; letter-spacing: 0; }
+      .mono { font: 600 12px "Cascadia Mono", "Consolas", monospace; fill: #3D3D3D; letter-spacing: 0; }
+      .nav { font: 700 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #3D3D3D; letter-spacing: 0; text-transform: uppercase; }
+      .nav-active { font: 700 14px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: 0; text-transform: uppercase; }
+      .btn-text { font: 800 13px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #FFFFFF; letter-spacing: 0.5px; text-transform: uppercase; }
+      .logo-text { font: 800 18px "Inter", "Microsoft YaHei", Arial, sans-serif; fill: #1C1C1C; letter-spacing: -0.3px; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="960" fill="#F9F6F0"/>
+  <rect x="32" y="24" width="1376" height="912" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow)"/>
+  <rect x="32" y="24" width="232" height="912" fill="#F5F1EA" stroke="#1C1C1C" stroke-width="3"/>
+
+  <g transform="rotate(30, 84, 95)">
+    <circle cx="84" cy="95" r="21" fill="#FF2D20" stroke="#1C1C1C" stroke-width="3"/>
+    <circle cx="100" cy="81" r="13" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="3"/>
+    <circle cx="68" cy="81" r="10" fill="#F0C050" stroke="#1C1C1C" stroke-width="3"/>
+  </g>
+  <text x="124" y="88" class="logo-text">Codex RAG</text>
+  <text x="124" y="106" class="small">KNOWLEDGE WORKSPACE</text>
+
+  <text x="96" y="178" class="nav">知识库</text>
+  <text x="96" y="234" class="nav">上传文档</text>
+  <text x="96" y="290" class="nav">智能问答</text>
+  <text x="96" y="346" class="nav">历史记录</text>
+  <text x="96" y="402" class="nav">设置</text>
+
+  <rect x="60" y="840" width="176" height="60" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <rect x="80" y="858" width="24" height="24" fill="#2C5F8A" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="92" y="875" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#FFF" text-anchor="middle">A</text>
+  <text x="116" y="870" class="h3" font-size="13">admin</text>
+  <text x="116" y="887" class="small">ONLINE</text>
+
+  <text x="326" y="88" class="title">知识库</text>
+  <text x="326" y="116" class="body">管理本地 RAG 文档集合</text>
+
+  <rect x="1164" y="74" width="96" height="38" fill="#E85D4A" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <rect x="1164" y="74" width="96" height="38" fill="url(#benday-btn)"/>
+  <text x="1192" y="98" class="btn-text">同步</text>
+
+  <rect x="326" y="160" width="1074" height="48" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <text x="354" y="190" class="body" fill="#999">搜索文档名称或内容...</text>
+
+  <rect x="326" y="230" width="1074" height="460" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow)"/>
+  <line x1="326" y1="272" x2="1400" y2="272" stroke="#1C1C1C" stroke-width="2.5"/>
+  <text x="354" y="260" class="small">类型</text>
+  <text x="440" y="260" class="small">文档名</text>
+  <text x="960" y="260" class="small">文件大小</text>
+  <text x="1160" y="260" class="small">上传时间</text>
+
+  <line x1="326" y1="314" x2="1400" y2="314" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="352" y="288" width="38" height="26" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="364" y="306" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#E85D4A">PDF</text>
+  <text x="440" y="306" class="h3">RAG 技术详解.pdf</text>
+  <text x="960" y="306" class="mono">3.2 MB</text>
+  <text x="1160" y="306" class="mono">2025-05-19 14:32</text>
+
+  <line x1="326" y1="356" x2="1400" y2="356" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="352" y="330" width="38" height="26" fill="#E4ECF5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="362" y="348" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#2C5F8A">DOCX</text>
+  <text x="440" y="348" class="h3">向量数据库概览.docx</text>
+  <text x="960" y="348" class="mono">1.8 MB</text>
+  <text x="1160" y="348" class="mono">2025-05-18 10:11</text>
+
+  <line x1="326" y1="398" x2="1400" y2="398" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="352" y="372" width="38" height="26" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="364" y="390" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#3D3D3D">MD</text>
+  <text x="440" y="390" class="h3">LangChain 入门.md</text>
+  <text x="960" y="390" class="mono">0.5 MB</text>
+  <text x="1160" y="390" class="mono">2025-05-17 16:45</text>
+
+  <line x1="326" y1="440" x2="1400" y2="440" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="352" y="414" width="38" height="26" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="363" y="432" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#3D3D3D">TXT</text>
+  <text x="440" y="432" class="h3">术语表.txt</text>
+  <text x="960" y="432" class="mono">0.1 MB</text>
+  <text x="1160" y="432" class="mono">2025-05-16 09:22</text>
+
+  <line x1="326" y1="482" x2="1400" y2="482" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="352" y="456" width="38" height="26" fill="#FCE8E5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="364" y="474" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#E85D4A">PDF</text>
+  <text x="440" y="474" class="h3">Embedding 原理与实践.pdf</text>
+  <text x="960" y="474" class="mono">4.6 MB</text>
+  <text x="1160" y="474" class="mono">2025-05-15 11:03</text>
+
+  <line x1="326" y1="524" x2="1400" y2="524" stroke="#1C1C1C" stroke-width="1"/>
+  <rect x="352" y="498" width="38" height="26" fill="#F0ECE5" stroke="#1C1C1C" stroke-width="2"/>
+  <text x="364" y="516" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#3D3D3D">MD</text>
+  <text x="440" y="516" class="h3">ChromaDB 使用手册.md</text>
+  <text x="960" y="516" class="mono">0.9 MB</text>
+  <text x="1160" y="516" class="mono">2025-05-14 15:55</text>
+
+  <text x="354" y="662" class="small">共 6 条</text>
+  <rect x="1310" y="648" width="34" height="30" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="2.5"/>
+  <text x="1320" y="668" class="mono">←</text>
+  <rect x="1350" y="648" width="34" height="30" fill="#1C1C1C" stroke="#1C1C1C" stroke-width="2.5"/>
+  <rect x="1350" y="648" width="34" height="30" fill="url(#benday-btn)"/>
+  <text x="1362" y="668" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="#FFF">1</text>
+
+  <rect x="326" y="712" width="1074" height="44" fill="#FFFFFF" stroke="#1C1C1C" stroke-width="3" filter="url(#hard-shadow-sm)"/>
+  <text x="354" y="738" class="mono">collection: user_7  •  vector_store: chroma_db  •  embedding: BAAI/bge-small-zh-v1.5</text>
+</svg>

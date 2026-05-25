@@ -1,0 +1,32 @@
+:root {
+  --brand-coral: #E85D4A;
+  --brand-blue: #2C5F8A;
+  --brand-gold: #F0C050;
+  --bg-cream: #F9F6F0;
+  --bg-sidebar: #F5F1EA;
+  --border-warm: #000000;
+  --box-shadow: 5px 5px 0px #000000;
+  --box-shadow-small: 4px 4px 0px #000000;
+  --text-primary: #1C1C1C;
+  --text-muted: #666666;
+  --font-family: "Arial Black", "Impact", sans-serif;
+  --font-mono: "Courier New", "Consolas", monospace;
+
+  --el-color-primary: #E85D4A;
+  --el-border-radius-base: 0px;
+  --el-font-family: var(--font-family);
+  --el-border-color: #000000;
+  --el-input-border-color: #000000;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #app { height: 100%; overflow: hidden; }
+
+body {
+  font-family: var(--font-family);
+  font-weight: 700;
+  color: var(--text-primary);
+  background: var(--bg-cream);
+  min-height: 100vh;
+}
