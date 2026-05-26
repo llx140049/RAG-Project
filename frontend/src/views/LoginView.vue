@@ -126,8 +126,8 @@ async function handleRegister() {
 .login-container {
   display: flex;
   background: #FFFFFF;
-  border: var(--border-width) solid var(--border-warm);
-	border-radius: var(--border-radius);
+  border: 3px solid var(--border-warm);
+	border-radius: 0;
   box-shadow: var(--box-shadow);
   max-width: 700px;
   width: 100%;
@@ -145,7 +145,10 @@ async function handleRegister() {
 	justify-content: center;
 }
 
-.brand-panel .logo { margin-bottom: -30px; }
+.brand-panel .logo { 
+  margin-bottom: -30px;
+  z-index: 1;
+ }
 .brand-panel h2 {
   font-size: 45px;
   font-weight: 900;/* 加粗 */
@@ -173,6 +176,16 @@ async function handleRegister() {
   align-items: center;
   background: var(--brand-blue);
   }
+.form-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255, 255, 255, 0.123) 39px, rgba(255,255,255,0.123) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.123) 39px, rgba(255,255,255,0.123) 40px);
+  pointer-events: none;
+  z-index: 0;
+}
 
 .auth-tabs { 
 	width: 95%; 

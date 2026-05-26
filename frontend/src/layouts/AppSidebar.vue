@@ -43,7 +43,7 @@ onMounted(() => {
 
                 <div class="profile">
                     <span class="head-picture">{{ auth.user?.username?.charAt(0) || 'A' }}</span>
-                    <div>
+                    <div class="profile-info">
                         <strong class="username">{{ auth.user?.username  }}</strong>
                         <span class="profile-word">{{ auth.signature }}</span>
                     </div>
@@ -159,18 +159,31 @@ onMounted(() => {
         font-weight: 900;
         z-index: 1;
     }
+    .profile-info {
+        flex: 1;/* 占满剩余空间 */
+        min-width: 0;
+    }
     .username {
         display: block;
         margin-top: 2px;
         font-size: 18px;
         font-weight: 900;
         color: var(--brand-gold);
+        /* 单行,超出部分省略号 */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .profile-word {
         display: block;
         font-size: 12px;
         font-weight: 700;
         color: #FFFFFF;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+
     }
 
     .nav-item i {
