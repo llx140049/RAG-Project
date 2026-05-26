@@ -5,8 +5,8 @@ from services.vector_store import search_vector_store
 
 load_dotenv()
 
-DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
-DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
+_DEFAULT_API_KEY = os.getenv("DEEPSEEK_API_KEY")
+_DEFAULT_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
 def build_prompt(query: str, context: list) -> str:
     context_text = "\n\n".join([item["text"] for item in context])
@@ -34,10 +34,16 @@ def build_prompt(query: str, context: list) -> str:
 """
     return prompt.strip()
 
-def call_deepseek(prompt: str) -> str:
+def call_deepseek(prompt: str, api_key: str = None, api_url: str = None) -> str:
+    key = api_key or _DEFAULT_API_KEY
+    url = api_url or _DEFAULT_API_URL
+    if url and not url.endswith('/chat/completions'):
+        url = url.rstrip('/') + '/chat/completions'
+    if not key:
+        return ""
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {DEEPSEEK_API_KEY}"
+        "Authorization": f"Bearer {key}"
     }
     data = {
         "model": "deepseek-v4-flash",
@@ -46,17 +52,17 @@ def call_deepseek(prompt: str) -> str:
         "max_tokens": 1024
     }
     try:
-        response = requests.post(DEEPSEEK_API_URL, headers=headers, json=data, timeout=60)
+        response = requests.post(url, headers=headers, json=data, timeout=60)
         response.raise_for_status()
         result = response.json()
         return result["choices"][0]["message"]["content"]
     except Exception as e:
         return f"API调用失败: {str(e)}"
 
-def answer_question(user_id: int, query: str, k: int = 5) -> dict:
+def answer_question(user_id: int, query: str, k: int = 5, api_key: str = None, api_url: str = None) -> dict:
     context = search_vector_store(str(user_id), query, k=k)
     if not context:
         return {"answer": "文档中没有相关信息", "context_count": 0, "context": []}
     prompt = build_prompt(query, context)
-    answer = call_deepseek(prompt)
+    answer = call_deepseek(prompt, api_key=api_key, api_url=api_url)
     return {"answer": answer, "context_count": len(context), "context": context}

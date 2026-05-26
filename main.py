@@ -132,6 +132,8 @@ async def upload_file(
     file: UploadFile = File(...),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     user_dir = Path("uploads") / str(current_user.id)#拼接路径
     user_dir.mkdir(parents=True, exist_ok=True)#.mkdir()用于创建目录,不存在就创建（包括父目录），已存在就跳过
@@ -204,8 +206,10 @@ async def qa(
     query: str,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
-    result = answer_question(user_id=current_user.id, query=query, k=5)
+    result = answer_question(user_id=current_user.id, query=query, k=5, api_key=api_key, api_url=api_url)
     sources_str = "无"
 
     # 保存问答记录到历史
@@ -247,6 +251,8 @@ def list_documents(
     limit: int = Query(20, ge=1, le=100),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     docs = (
         db.query(Document)
@@ -265,6 +271,8 @@ def rename_document(
     body: RenameRequest,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     if not body.new_name or not body.new_name.strip():
         raise HTTPException(status_code=422, detail="新文件名不能为空")
@@ -288,6 +296,8 @@ def delete_document(
     file_id: str,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     doc = (
         db.query(Document)
@@ -323,6 +333,8 @@ def download_document(
     token: str = Query(None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     doc = (
         db.query(Document)
@@ -358,6 +370,8 @@ def download_document(
 def clear_history(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     deleted = (
         db.query(History)
@@ -374,6 +388,8 @@ def list_history(
     limit: int = Query(20, ge=1, le=100),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     records = (
         db.query(History)
@@ -391,6 +407,8 @@ def get_history(
     history_id: int,
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
+    api_key: str = None,
+    api_url: str = None,
 ):
     record = (
         db.query(History)

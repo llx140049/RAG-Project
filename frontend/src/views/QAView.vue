@@ -32,7 +32,9 @@
 		await scrollToBottom()// 滚动到最底部
 
 		try {
-			const res=await askQuestion(text)
+			const apiKey = localStorage.getItem('model-key') || undefined
+			const apiUrl = localStorage.getItem('model-url') || undefined
+			const res=await askQuestion(text, apiKey, apiUrl)
 			// 处理响应,添加到消息列表,
 			messages.value.push({
 				role:'assistant',

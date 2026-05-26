@@ -8,6 +8,6 @@ export interface QAResponse {
 }
 
 // 提交问题
-export function askQuestion(query: string) {
-  return apiClient.post<QAResponse>('/qa', null, { params: { query } })
+export function askQuestion(query: string, apiKey?: string, apiUrl?: string) {
+  return apiClient.post<QAResponse>('/qa', null, { params: { query, api_key: apiKey, api_url: apiUrl } })
 }
