@@ -1,4 +1,4 @@
-﻿<script setup lang="ts">
+<script setup lang="ts">
 
 import { ref } from "vue"
 import { useAuthStore } from "../stores/auth"
@@ -29,7 +29,7 @@ function doLogout() {
 </script>
 
 <template>
-  <div class="settings-page">
+  <div class="settings-page grid-page">
     <span class="page-label">SETTINGS</span>
 
     <div class="settings-grid">
@@ -105,24 +105,11 @@ function doLogout() {
 <style scoped>
 .settings-page {
   position: relative;
-  background-color: var(--brand-blue);
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-
-/* 网格纹理 */
-.settings-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.04) 39px, rgba(255,255,255,0.04) 40px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .page-label {

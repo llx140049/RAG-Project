@@ -30,7 +30,7 @@ export const useHistoryStore=defineStore('history',()=>{
         }
     }
 
-        async function clearHistory() {
+    async function clearHistory() {
         await deleteHistory()
         records.value = []
         total.value = 0

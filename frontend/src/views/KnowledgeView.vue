@@ -3,7 +3,7 @@ import { useDocumentStore } from '../stores/documents'
 import { ref, computed, onMounted } from 'vue'
 import type { DocumentItem } from '../api/documents'
 import { ElMessageBox } from 'element-plus'
-import { fileBadge } from '../utils/format'
+import { fileBadge, formatDateTime } from '../utils/format'
 
 const store = useDocumentStore()
 const search = ref('')
@@ -50,21 +50,11 @@ function confirmDelete(doc: DocumentItem) {
   ).then(() => store.doDelete(doc.file_id))
 }
 
-function formatDate(iso: string) {
-  const d = new Date(iso)
-  const y = d.getFullYear()
-  const mo = d.getMonth() + 1
-  const day = d.getDate()
-  const h = String(d.getHours()).padStart(2, '0')
-  const mi = String(d.getMinutes()).padStart(2, '0')
-  return `${y}-${mo}-${day} ${h}:${mi}`
-}
-
 onMounted(() => store.loadDocuments())
 </script>
 
 <template>
-  <div class="knowledge-page">
+  <div class="knowledge-page grid-page">
     <header class="page-header">
       <div class="header-text">
         <h1>知识库</h1>
@@ -89,7 +79,7 @@ onMounted(() => store.loadDocuments())
 
         <el-table-column label="上传时间" width="200">
           <template #default="{ row }">
-            <span class="date-cell">{{ formatDate(row.created_at) }}</span>
+            <span class="date-cell">{{ formatDateTime(row.created_at) }}</span>
           </template>
         </el-table-column>
 
@@ -128,18 +118,6 @@ onMounted(() => store.loadDocuments())
   padding: 24px 32px;
   width: 100%;
 	height: 100%;
-	background-color: var(--brand-blue);
-}
-/* 网格纹理 */
-.knowledge-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255, 255, 255, 0.123) 39px, rgba(255,255,255,0.123) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.123) 39px, rgba(255,255,255,0.123) 40px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .page-header {

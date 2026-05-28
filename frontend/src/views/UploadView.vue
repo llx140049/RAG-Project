@@ -64,7 +64,7 @@
 
 
 <template>
-  <div class="upload-page">
+  <div class="upload-page grid-page">
 		<header class="page-header">
 			<h1>上传文档</h1>
 			<p>充实你的知识库</p>
@@ -126,18 +126,6 @@
   padding: 40px;
   width: 100%;
 	height: 100%;
-	background-color: var(--brand-blue);
-}
-/* 网格纹理 */
-.upload-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255, 255, 255, 0.123) 39px, rgba(255,255,255,0.123) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.123) 39px, rgba(255,255,255,0.123) 40px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .page-header {

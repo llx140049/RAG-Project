@@ -2,6 +2,7 @@
 import { onMounted } from 'vue'
 import { useHistoryStore } from '../stores/history'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { formatDateTime } from '../utils/format'
 
 const store = useHistoryStore()
 
@@ -19,29 +20,20 @@ async function handleClear() {
   }
 }
 
-function formatDate(iso: string) {
-  const d = new Date(iso)
-  const y = d.getFullYear()
-  const mo = d.getMonth() + 1
-  const day = d.getDate()
-  const h = String(d.getHours()).padStart(2, '0')
-  const mi = String(d.getMinutes()).padStart(2, '0')
-  return `${y}-${mo}-${day} ${h}:${mi}`
-}
-
 onMounted(() => store.loadHistory())
 </script>
 
 <template>
-  <div class="history-page">
+  <div class="history-page grid-page">
     <header class="page-header">
-<div class="header-left">
+      <div class="header-left">
         <h1>历史记录</h1>
         <p>浏览过往问答</p>
       </div>
       <button class="clear-btn" @click="handleClear">清空记录</button>
     </header>
 
+    <!--:data="store.records" : 把 store.records 作为表格的数据源传给 el-table-->
     <div class="table-card">
       <el-table
         :data="store.records"
@@ -49,6 +41,7 @@ onMounted(() => store.loadHistory())
         stripe
         style="width: 100%"
       >
+        <!-- 展开列,点击展开后显示问题和回答 -->
         <el-table-column type="expand">
           <template #default="{ row }">
             <div class="expand-body">
@@ -62,7 +55,7 @@ onMounted(() => store.loadHistory())
               </div>
               <div class="expand-meta">
                 <span>来源：{{ (row as any).sources || '无' }}</span>               
-                <span>时间：{{ formatDate((row as any).created_at) }}</span>
+                <span>时间：{{ formatDateTime((row as any).created_at) }}</span>
 
               </div>
             </div>
@@ -77,7 +70,7 @@ onMounted(() => store.loadHistory())
           </template>
         </el-table-column>
         
-        <el-table-column label="来源" min-width="160" align="center">
+        <el-table-column label="来源" min-width="160" align="center" >
           <template #default="{ row }">
             {{ (row as any).sources || '无' }}
           </template>
@@ -95,18 +88,6 @@ onMounted(() => store.loadHistory())
   width: 100%;
   min-height: 100%;/*父元素高度增加时能随之增加*/
   padding: 24px 32px;
-  background: var(--brand-blue);
-}
-
-.history-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255, 255, 255, 0.123) 39px, rgba(255,255,255,0.123) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.123) 39px, rgba(255,255,255,0.123) 40px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .page-header {
@@ -189,6 +170,8 @@ onMounted(() => store.loadHistory())
   display: flex;
   gap: 12px;
   padding: 14px 16px;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .expand-question {
@@ -198,10 +181,11 @@ onMounted(() => store.loadHistory())
 }
 
 .expand-answer {
-  background: #FFF;
+  background: var(--bg-sidebar);
   border: 2px solid #000;
-  border-left: 5px solid var(--brand-coral);
+  border-left: 3px solid var(--brand-coral);
   border-top: none;
+  border-bottom: none;
 }
 
 .expand-label {

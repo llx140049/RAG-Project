@@ -14,3 +14,14 @@ export function formatSize(bytes: number): string {
   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB'
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB'
 }
+
+// 日期时间格式化
+export function formatDateTime(iso: string): string {
+  const d = new Date(iso)
+  const y = d.getFullYear()
+  const mo = d.getMonth() + 1
+  const day = d.getDate()
+  const h = String(d.getHours()).padStart(2, '0')
+  const mi = String(d.getMinutes()).padStart(2, '0')
+  return `${y}-${mo}-${day} ${h}:${mi}`
+}

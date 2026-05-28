@@ -30,3 +30,12 @@ body {
   background: var(--bg-cream);
   min-height: 100vh;
 }
+
+.grid-page {
+  --grid-line-color: rgba(255, 255, 255, 0.123);
+  background-color: var(--brand-blue);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, var(--grid-line-color) 39px, var(--grid-line-color) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, var(--grid-line-color) 39px, var(--grid-line-color) 40px);
+  background-attachment: fixed;
+}

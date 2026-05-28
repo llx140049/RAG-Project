@@ -28,7 +28,7 @@
 		if(!text||loading.value) return// 空消息或正在加载,直接返回
 		const historyPayload = messages.value
 			.slice(-MEMORY_WINDOW)
-			.map((msg) => ({ role: msg.role, content: msg.content }))
+			.map((msg) => ({ role: msg.role, content: msg.content }))//把数组中的每个元素都转换为对象,只保留 role 和 content 属性，生成一个新数组
 		// 添加用户消息到列表
 		messages.value.push({role:'user',content:text,time:formatTime()})
 		inputText.value=''
@@ -102,7 +102,7 @@
 </script>
 
 <template>
-	<div class="qa-page">
+	<div class="qa-page grid-page">
 		<header class="qa-header">
 			<div class="header-text">
 				<h1>智能问答</h1>
@@ -160,18 +160,6 @@
   flex-direction: column;
   width: 100%;
 	height: 100%;
-  background: var(--brand-blue);
-}
-/* 网格纹理 */
-.qa-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255, 255, 255, 0.123) 39px, rgba(255,255,255,0.123) 40px),
-    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.123) 39px, rgba(255,255,255,0.123) 40px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .qa-header {
