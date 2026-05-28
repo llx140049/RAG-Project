@@ -2,7 +2,7 @@
 import { useDocumentStore } from '../stores/documents'
 import { ref, computed, onMounted } from 'vue'
 import type { DocumentItem } from '../api/documents'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import { fileBadge } from '../utils/format'
 
 const store = useDocumentStore()

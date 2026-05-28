@@ -1,6 +1,6 @@
-from pydantic import BaseModel, EmailStr, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from datetime import datetime
-from typing import Optional
+from typing import Literal, Optional
 
 # 用户注册请求模型
 class UserCreate(BaseModel):
@@ -68,6 +68,34 @@ class HistoryOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class ChatMessageIn(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str
+
+    @field_validator("content")
+    @classmethod
+    def content_not_empty(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("消息内容不能为空")
+        return v
+
+
+class QARequest(BaseModel):
+    query: str
+    history: list[ChatMessageIn] = Field(default_factory=list)
+    api_key: Optional[str] = None
+    api_url: Optional[str] = None
+
+    @field_validator("query")
+    @classmethod
+    def query_not_empty(cls, v: str) -> str:
+        v = v.strip()
+        if not v:
+            raise ValueError("问题不能为空")
+        return v
 
 
 class QAOut(BaseModel):

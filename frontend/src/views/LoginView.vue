@@ -14,6 +14,7 @@ const loading = ref(false)
 const loginForm = reactive({ username: '', password: '' })
 const registerForm = reactive({ email: '', username: '', password: '' })
 const registerFormRef = ref<FormInstance>()
+  // ElementPlus 提供注册表单验证规则
 const registerRules: FormRules = {
   email: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
@@ -78,6 +79,7 @@ async function handleRegister() {
 
       <div class="form-panel">
         <el-tabs v-model="activeTab" class="auth-tabs">
+
           <el-tab-pane label="登录" name="login">
             <el-form @submit.prevent="handleLogin" label-position="top">
               <el-form-item label="用户名">

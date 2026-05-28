@@ -7,10 +7,41 @@ load_dotenv()
 
 _DEFAULT_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 _DEFAULT_API_URL = "https://api.deepseek.com/v1/chat/completions"
+_MAX_HISTORY_MESSAGES = 6
 
-def build_prompt(query: str, context: list) -> str:
-    context_text = "\n\n".join([item["text"] for item in context])
+def _sanitize_history(history: list | None) -> list[dict]:
+    if not history:
+        return []
+
+    sanitized = []
+    for item in history[-_MAX_HISTORY_MESSAGES:]:
+        role = item.get("role")
+        content = str(item.get("content", "")).strip()
+        if role not in {"user", "assistant"} or not content:
+            continue
+        sanitized.append({"role": role, "content": content})
+    return sanitized
+
+def build_search_query(query: str, history: list | None = None) -> str:
+    recent_history = _sanitize_history(history)
+    if not recent_history:
+        return query
+
+    history_text = "\n".join(
+        [f'{"用户" if item["role"] == "user" else "助手"}: {item["content"]}' for item in recent_history]
+    )
+    return f"当前问题：{query}\n最近对话：\n{history_text}"
+
+def build_prompt(query: str, context: list, history: list | None = None) -> str:
+    context_text = "\n\n".join([item["text"] for item in context]) if context else "无"
+    recent_history = _sanitize_history(history)
+    history_text = "\n".join(
+        [f'{"用户" if item["role"] == "user" else "助手"}: {item["content"]}' for item in recent_history]
+    ) if recent_history else "无"
     prompt = f"""你是产品中的智能助手，正在和用户进行自然对话。
+
+最近几轮对话：
+{history_text}
 
 文档内容：
 {context_text}
@@ -31,6 +62,9 @@ def build_prompt(query: str, context: list) -> str:
 9. 如果需要分类，使用自然表达，例如“从这些资料来看，大致可以分为……”。不要写成生硬条目清单。
 10. 不要重复用户问题，不要写开场寒暄，不要加多余免责声明。
 11. 让回答读起来像产品里的助手消息，而不是文档摘要器。
+12. 最近几轮对话只作为短记忆，用来理解代词、省略和追问。如果最近对话已经明确给出上文，可以自然接着回答。
+13. 如果最近对话与文档内容冲突，优先以文档内容和当前问题为准。
+14. 只有在当前问题明显是延续上一轮，而且最近对话已经提供足够信息时，才可以在没有检索内容的情况下继续回答。
 """
     return prompt.strip()
 
@@ -59,10 +93,19 @@ def call_deepseek(prompt: str, api_key: str = None, api_url: str = None) -> str:
     except Exception as e:
         return f"API调用失败: {str(e)}"
 
-def answer_question(user_id: int, query: str, k: int = 5, api_key: str = None, api_url: str = None) -> dict:
-    context = search_vector_store(str(user_id), query, k=k)
-    if not context:
+def answer_question(
+    user_id: int,
+    query: str,
+    history: list | None = None,
+    k: int = 5,
+    api_key: str = None,
+    api_url: str = None
+) -> dict:
+    recent_history = _sanitize_history(history)
+    search_query = build_search_query(query, recent_history)
+    context = search_vector_store(str(user_id), search_query, k=k)
+    if not context and not recent_history:
         return {"answer": "文档中没有相关信息", "context_count": 0, "context": []}
-    prompt = build_prompt(query, context)
+    prompt = build_prompt(query, context, recent_history)
     answer = call_deepseek(prompt, api_key=api_key, api_url=api_url)
     return {"answer": answer, "context_count": len(context), "context": context}

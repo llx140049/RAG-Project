@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 
 from dotenv import load_dotenv
 from jose import JWTError, jwt
-from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File, Request, Query
+from fastapi import FastAPI, Depends, HTTPException, status, UploadFile, File, Request, Query, Body
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.responses import JSONResponse, FileResponse
@@ -15,7 +15,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from database import engine, Base, get_db
 from models import User, Document, History
-from schemas import UserCreate, UserOut, Token, DocumentOut, HistoryOut, RenameRequest, QAOut
+from schemas import UserCreate, UserOut, Token, DocumentOut, HistoryOut, RenameRequest, QAOut, QARequest
 from services.document_parser import parse_document
 from services.text_splitter import split_text
 from services.vector_store import add_to_vector_store, delete_from_vector_store
@@ -203,13 +203,27 @@ async def upload_file(
 # 问答接口
 @app.post("/qa", response_model=QAOut)
 async def qa(
-    query: str,
+    query: str | None = Query(None),
+    qa_body: QARequest | None = Body(None),
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-    api_key: str = None,
-    api_url: str = None,
 ):
-    result = answer_question(user_id=current_user.id, query=query, k=5, api_key=api_key, api_url=api_url)
+    final_query = qa_body.query if qa_body else (query.strip() if query else "")
+    if not final_query:
+        raise HTTPException(status_code=422, detail="问题不能为空")
+
+    history = [item.model_dump() for item in qa_body.history] if qa_body else []
+    api_key = qa_body.api_key if qa_body else None
+    api_url = qa_body.api_url if qa_body else None
+
+    result = answer_question(
+        user_id=current_user.id,
+        query=final_query,
+        history=history,
+        k=5,
+        api_key=api_key,
+        api_url=api_url,
+    )
     sources_str = "无"
 
     # 保存问答记录到历史
@@ -226,7 +240,7 @@ async def qa(
 
         history = History(
             user_id=current_user.id,
-            question=query,
+            question=final_query,
             answer=result["answer"],
             sources=sources_str,
         )
@@ -236,7 +250,7 @@ async def qa(
         print(f"保存历史记录失败: {e}")
 
     return {
-        "query": query,
+        "query": final_query,
         "answer": result["answer"],
         "context_count": result["context_count"],
         "sources": sources_str,

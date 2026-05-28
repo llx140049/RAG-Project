@@ -10,11 +10,12 @@
 		sources?: string
 	}
 
-	const messages = ref<Message[]>([])
+	const messages = ref<Message[]>([])// 对话消息列表
 	const inputText = ref('')// 输入框内容
 	const loading = ref(false)
-	const listRef = ref<HTMLElement>()
+	const listRef = ref<HTMLElement>()//
 	const STORAGE_KEY='qa-chat-archive'
+	const MEMORY_WINDOW = 6
 
 	// 格式化时间
 	function formatTime(){
@@ -25,6 +26,9 @@
 	async function sendMessage(){
 		const text=inputText.value.trim()// 去掉首尾空格
 		if(!text||loading.value) return// 空消息或正在加载,直接返回
+		const historyPayload = messages.value
+			.slice(-MEMORY_WINDOW)
+			.map((msg) => ({ role: msg.role, content: msg.content }))
 		// 添加用户消息到列表
 		messages.value.push({role:'user',content:text,time:formatTime()})
 		inputText.value=''
@@ -34,7 +38,12 @@
 		try {
 			const apiKey = localStorage.getItem('model-key') || undefined
 			const apiUrl = localStorage.getItem('model-url') || undefined
-			const res=await askQuestion(text, apiKey, apiUrl)
+			const res=await askQuestion({
+				query:text,
+				history:historyPayload,
+				apiKey,
+				apiUrl,
+			})
 			// 处理响应,添加到消息列表,
 			messages.value.push({
 				role:'assistant',
@@ -97,7 +106,7 @@
 		<header class="qa-header">
 			<div class="header-text">
 				<h1>智能问答</h1>
-				<p>基于上传文档的知识库问答，每次对话为独立会话</p>
+				<p>基于上传文档的知识库问答，最近几轮对话会作为短记忆参与回答</p>
 			</div>
 			<div class="header-actions">
 				<button class="clear-btn" @click="clearMessages">清除对话</button>
