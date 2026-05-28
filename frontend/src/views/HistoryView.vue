@@ -1,10 +1,26 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useHistoryStore } from '../stores/history'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { formatDateTime } from '../utils/format'
 
-const store = useHistoryStore()
+const store = useHistoryStore()//获取历史记录存储实例
+const page = ref(1)
+const pageSize = 6
+
+// 切分历史记录列表,6条/页
+const pageRecords = computed(() => {
+  const start = (page.value - 1) * pageSize
+  return store.records.slice(start, start + pageSize)
+})
+
+watch(// 监听历史记录列表长度变化->执行更新分页
+  () => store.records.length,
+  (length) => {
+    const maxPage = Math.max(1, Math.ceil(length / pageSize))
+    if (page.value > maxPage) page.value = maxPage
+  }
+)
 
 async function handleClear() {
   try {
@@ -16,11 +32,11 @@ async function handleClear() {
     await store.clearHistory()
     ElMessage.success('已清空')
   } catch (e: any) {
-    if (e !== 'cancel') ElMessage.error('清空失败')
+    if (e !== 'cancel') ElMessage.error('清空失败')//如果用户点击了取消,则不显示错误提示
   }
 }
 
-onMounted(() => store.loadHistory())
+onMounted(() => store.loadHistory(0, 100))
 </script>
 
 <template>
@@ -36,7 +52,7 @@ onMounted(() => store.loadHistory())
     <!--:data="store.records" : 把 store.records 作为表格的数据源传给 el-table-->
     <div class="table-card">
       <el-table
-        :data="store.records"
+        :data="pageRecords"
         v-loading="store.loading"
         stripe
         style="width: 100%"
@@ -76,6 +92,17 @@ onMounted(() => store.loadHistory())
           </template>
         </el-table-column>
       </el-table>
+
+      <div class="table-footer">
+        <span>共 {{ store.records.length }} 条</span>
+        <el-pagination
+          v-model:current-page="page"
+          :page-size="pageSize"
+          :total="store.records.length"
+          layout="prev, pager, next"
+          background
+        /><!--点击下一页,el-pagination 自动更新 page.value-->
+      </div>
     </div>
   </div>
 </template>
@@ -100,14 +127,8 @@ onMounted(() => store.loadHistory())
   background-color: #F0C050;
   border: 3px solid #000000;
   box-shadow: 5px 5px 0px #000000;
-  padding: 8px 25px;
+  padding: 10px 25px;
   margin-bottom: 20px;
-}
-.header-left {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
 }
 
 .page-header h1 {
@@ -116,15 +137,15 @@ onMounted(() => store.loadHistory())
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 6px;
-  margin: 0 20px 0 0;
+  
 }
 
 .page-header p {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-muted);
-  margin: 0;
+  
 }
 .clear-btn {
   font-family: var(--font-mono);
@@ -155,6 +176,17 @@ onMounted(() => store.loadHistory())
   border: 3px solid #000000;
   box-shadow: 5px 5px 0px #000000;
   background: #FFFFFF;
+}
+
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-top: 4px solid #000000;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 /* ===== Expand area ===== */

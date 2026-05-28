@@ -7,10 +7,13 @@ export const useHistoryStore=defineStore('history',()=>{
     const loading=ref(false)//是否正在加载中
     const total=ref(0)//总记录数
 
+    // 加载历史记录
+    // skip: 跳过记录数
+    // limit: 每页记录数
     async function loadHistory(skip=0, limit=10) {
         loading.value=true
         try {
-            const res=await getHistoryList(skip, limit)
+            const res=await getHistoryList(skip, limit)//获取历史记录列表
             records.value=res.data
             total.value=records.value.length
         } catch (error) {
